@@ -86,7 +86,7 @@ AFRAME.registerComponent('sorting-collision', {
             document.querySelector("#trumpet").components.sound.playSound();
             console.log("🎉 All items sorted correctly! Congrats.");
 
-            this.socket.emit("sortComplete"); //tell server sorting is done
+            this.socket.emit("sortComplete", { room: "yourRoomName" }); //tell server sorting is done
         }
     }
 });

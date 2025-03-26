@@ -354,13 +354,12 @@ io.on("connection", socket => {
     socket.broadcast.emit("updateItemPosition", data); //broadcast to everyone except sender
   });
 
-  socket.on("gameComplete", () => {
-    console.log("🎉 A player has completed the sorting game!");
-    io.emit("gameComplete"); // notify ALL players
-    // Broadcast the spawn event to all clients when the server receives a "spawnShape" event
+  socket.on("sortComplete", () => {
+    console.log("🎉 Sorting game completed!");
+    io.emit("sortComplete"); // notify ALL players
+    // broadcast spawn event to all clients when the server receives a "spawnShape" event
     socket.on('spawnShape', (shapeData) => {
-      console.log('Spawning shape:', shapeData);
-      // Emit the shape spawn data to all clients
+      console.log('Spawning shape:', shapeData); // emit the shape spawn data to all clients
       io.emit('spawnShape', shapeData);
     });
   });
