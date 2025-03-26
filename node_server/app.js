@@ -364,6 +364,11 @@ io.on("connection", socket => {
       io.emit('spawnShape', shapeData);
     });
   });
+
+  socket.on("playDing", (data) => {
+    console.log("ding played");
+    io.emit("playDing", data); // Broadcast to all clients
+  });
   
   // Listen for environment change from client
   socket.on("changeEnvironment", (newEnvironment) => {

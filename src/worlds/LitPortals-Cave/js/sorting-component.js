@@ -48,6 +48,7 @@ AFRAME.registerComponent('sorting-collision', {
                         item.object3D.parent.worldToLocal(goalPosition);
                     }
 
+                    this.socket.emit("playDing", { sound: "ding" });
                     document.querySelector("#ding").components.sound.playSound();
                     item.object3D.position.copy(goalPosition); //makes artifact reposition (have to press on artifact itself)
 
