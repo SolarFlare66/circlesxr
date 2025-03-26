@@ -348,6 +348,16 @@ io.on("connection", socket => {
     io.emit("updateEnvironment", newEnvironment);
     console.log(`Broadcasting new environment to all clients: ${newEnvironment}`);
   });
+
+  socket.on("itemPlaced", (data) => {
+    console.log(`received position of ${data.itemId} placed at`, data.position);
+    socket.broadcast.emit("updateItemPosition", data); //broadcast to everyone except sender
+  });
+
+  socket.on("gameComplete", () => {
+    console.log("🎉 A player has completed the sorting game!");
+    io.emit("gameComplete"); // notify ALL players
+  });
 });
 
 //let's create a research namespace.

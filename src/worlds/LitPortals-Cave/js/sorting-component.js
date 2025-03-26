@@ -1,11 +1,7 @@
 AFRAME.registerComponent('sorting-collision', {
 
     init: function() {
-        //this.sortingItems = document.querySelectorAll('.sorting_item'); //sortingItems = any element with class 'sorting_item'
-        this.boundaryBoxes = document.querySelectorAll('.collisionbox'); //^ ^
-
-        //bounding boxes
-        //this.itemBoundary = new THREE.Box3();
+        this.boundaryBoxes = document.querySelectorAll('.collisionbox'); 
         this.boxBoundary = new THREE.Box3();
 
         /*this.el.addEventListener('mouseup', () => {
@@ -15,6 +11,16 @@ AFRAME.registerComponent('sorting-collision', {
         this.el.addEventListener('releaseEventFunc', () => {
             this.checkCollision();
         });
+
+        this.socket = io();
+
+        this.socket.on("updateItemPosition", (data) => {
+            let item = document.getElementById(data.itemId);
+            if (item) {
+                item.object3D.position.set(data.position.x, data.position.y, data.position.z);
+                console.log(`getting ${data.itemId} position`)
+            }
+        })
     },
 
     checkCollision: function() {
@@ -47,6 +53,11 @@ AFRAME.registerComponent('sorting-collision', {
 
                     item.setAttribute("data-correct", "true");
                     this.checkItemPositions();
+
+                    this.socket.emit("itemPlaced", {  //emit event to server
+                        itemId: item.id,
+                        position: { x: goalPosition.x, y: goalPosition.y, z: goalPosition.z }
+                    });
                     
                 } else {
                     //document.querySelector("#buzzer").components.sound.playSound(); took out bc sometimes the item will touch both boundaries which plays the ding and buzz at the same time
@@ -73,6 +84,8 @@ AFRAME.registerComponent('sorting-collision', {
         if (allCorrect) { // if all items are placed
             document.querySelector("#trumpet").components.sound.playSound();
             console.log("🎉 All items sorted correctly! Congrats.");
+
+            this.socket.emit("sortComplete"); //tell server sorting is done
         }
     }
 });
