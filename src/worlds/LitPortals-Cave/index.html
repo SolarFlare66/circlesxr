@@ -87,9 +87,13 @@
          <a-sound id="cave_Amb-snd" src="assets/sounds/cave_Ambience.wav" preload="true"></a-sound>
 
         <!-- gltf models -->
-        <a-asset-item id="caveBaseModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/cave_base.glb"></a-asset-item>
+        <a-asset-item id="caveBaseModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/cave.glb"></a-asset-item>
         <a-asset-item id="rockModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/rock_model/scene.gltf"></a-asset-item>
         <a-asset-item id="torchModel"response-type="arraybuffer"src="assets/models/torch.glb"></a-asset-item>
+        <a-asset-item id="figurineModel" response-type="arraybuffer" src="assets/models/figurine_hand.glb"></a-asset-item>
+        <a-asset-item id="figurineNoHandModel" response-type="arraybuffer" src="assets/models/figurine_plain.glb"></a-asset-item>
+        <a-asset-item id="vaseModel" response-type="arraybuffer" src="assets/models/Pot2B.glb"></a-asset-item>
+        <a-asset-item id="sculptureNeoModel" response-type="arraybuffer" src="assets/models/sculpture.glb"></a-asset-item>
 
         <!-- Artefact textures -->
          <img id="cavePainting-img" src="assets/wall_art1.jpg">
@@ -190,8 +194,8 @@
                 circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title:Sorting Game;
-                                  description:These vases are all mixed up! Can you help sort them out on the ground?;
-                                  title_back:About the vases:;
+                                  description:These artifacts are all mixed up! Can you help sort them out on the ground?;
+                                  title_back:Hint;
                                   description_back: ;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
@@ -243,7 +247,12 @@
                                   label_text:Venus Ivory Carving;"
                 circles-pickup-networked></a-entity>    
 
-      <!--artifacts (vases go here)--> 
+      <!--artifacts--> 
+      <a-entity id="figurine-artefact" class="sorting_item" data-order="4" data-correct="false" sorting-collision
+        circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5"
+        position="12.5 2.5 -15.1" scale="0.4 0.4 0.4"></a-entity>
+
+      
       <a-sphere id="artifact1" class="sorting_item" data-order="4" data-correct="false" sorting-collision 
         circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5"
         position="12.5 2.5 -15.1" scale="0.4 0.4 0.4" color="red"></a-sphere>
