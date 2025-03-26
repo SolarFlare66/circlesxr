@@ -340,15 +340,6 @@ io.on("connection", socket => {
         io.emit('fireToggled', data);
       });
 
-    // Listen for environment change from client
-    socket.on("changeEnvironment", (newEnvironment) => {
-    console.log(`Received environment change request from ${socket.id}: ${newEnvironment}`);
-    
-    // Broadcast the change to all connected clients
-    io.emit("updateEnvironment", newEnvironment);
-    console.log(`Broadcasting new environment to all clients: ${newEnvironment}`);
-  });
-
   socket.on("itemPlaced", (data) => {
     console.log(`received position of ${data.itemId} placed at`, data.position);
     socket.broadcast.emit("updateItemPosition", data); //broadcast to everyone except sender
@@ -357,11 +348,6 @@ io.on("connection", socket => {
   socket.on("sortComplete", () => {
     console.log("🎉 Sorting game completed!");
     io.emit("sortComplete"); // notify ALL players
-    // broadcast spawn event to all clients when the server receives a "spawnShape" event
-    socket.on('spawnShape', (shapeData) => {
-      console.log('Spawning shape:', shapeData); // emit the shape spawn data to all clients
-      io.emit('spawnShape', shapeData);
-    });
   });
 
   socket.on("playDing", (data) => {
@@ -369,6 +355,27 @@ io.on("connection", socket => {
     io.emit("playDing", data); // Broadcast to all clients
   });
   
+  socket.on("gameReset", () => {
+    console.log("🔄 Sorting game reseted");
+    socket.broadcast.emit("updateItemPosition", data);
+  })
+
+  // Broadcast the spawn event to all clients when the server receives a "spawnShape" event
+  socket.on('spawnShape', (shapeData) => {
+    console.log('Spawning shape:', shapeData);
+    // Emit the shape spawn data to all clients
+    io.emit('spawnShape', shapeData);
+});
+
+  // Listen for environment change from client
+  socket.on("changeEnvironment", (newEnvironment) => {
+    console.log(`Received environment change request from ${socket.id}: ${newEnvironment}`);
+    
+    // Broadcast the change to all connected clients
+    io.emit("updateEnvironment", newEnvironment);
+    console.log(`Broadcasting new environment to all clients: ${newEnvironment}`);
+  });
+
   // Listen for environment change from client
   socket.on("changeEnvironment", (newEnvironment) => {
       console.log(`Received environment change request from ${socket.id}: ${newEnvironment}`);

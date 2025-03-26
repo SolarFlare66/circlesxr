@@ -87,6 +87,28 @@ AFRAME.registerComponent('sorting-collision', {
             console.log("🎉 All items sorted correctly! Congrats.");
 
             this.socket.emit("sortComplete", { room: "yourRoomName" }); //tell server sorting is done
+            this.resetSorting();
         }
+    },
+
+    resetSorting: function() {
+        setTimeout(() => {
+            document.getElementById("artifact1").object3D.position.set(12.5, 2.5, -15.1);
+            document.getElementById("artifact2").object3D.position.set(12.5, 2.5, -14.2);
+            document.getElementById("artifact3").object3D.position.set(12.5, 2.5, -13.3);
+            document.getElementById("artifact4").object3D.position.set(12.5, 2.5, -12.5);
+    
+            document.querySelectorAll('.sorting_item').forEach((item) => {
+                item.setAttribute("data-correct", "false");
+            });
+    
+            console.log("Game reset!");
+
+            this.socket.emit("gameReset", {
+                itemId: item.id,
+                position: { x: goalPosition.x, y: goalPosition.y, z: goalPosition.z }
+            });
+
+        }, 10000);
     }
 });
