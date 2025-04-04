@@ -34,7 +34,7 @@ AFRAME.registerComponent("change-environment", {
     }
 });
 const forestModels = [
-    "#bush_flowers", "#bunny", "#bird", "#bush", "#deer",  "#fox" ];
+    "#bush_flowers", "#bunny", "#bird", "#bush", "#deer",  "#fox", "#oak", "#pine" ];
 
 const archesModels = [
     "#dolphin", "#fish", "#jelly_pink", "#jelly_blue", "#shark" ];

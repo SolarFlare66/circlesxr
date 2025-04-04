@@ -27,8 +27,6 @@
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets/>
       </a-assets>
-
-      <!-- Circles' built-in manager and avatar [REQUIRED] -->
       <circles-manager-avatar/>
       
       <!-- just creating an entity that connects many elements together -->
@@ -84,21 +82,6 @@
                                   label_text:Pick Up Practice;"
         circles-pickup-networked></a-entity>
 
-      <a-entity id="instructions-2"
-                position="3 1 5" rotation="0 0 0" scale="1 1 1"
-                geometry="primitive:octahedron; radius:0.5;"
-                material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
-                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
-                                  textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
-                                  title:[~20-25 chars] Title Front;
-                                  description:[~240-280 chars]  This is the FRONT text that will display when an object is picked up. Adjust scale size and text rotation properties to make more visible.;
-                                  title_back:[~20-25 chars] Title Back;
-                                  description_back:[~240-280 chars] This is the back/secondary text that will display when you rotate the description bubble.;
-                                  description_offset:0 0.5 0;
-                                  desc_arrow_position:down;
-                                  label_text:Gem;"
-        -pickup-networked></a-entity>
-
       <!-- teleport pads-->
       <a-entity id = "teleport pads">
         <a-entity circles-checkpoint position="-4.6 0 -3.5"></a-entity>
@@ -116,12 +99,12 @@
           shadow></a-entity>
 
           <a-entity id="Portal-Future"
-          position="0 2.1 4.8" rotation="0 0 0" scale="3.6 3.35 1"
+          position="-4.7 2.2 0.1" rotation="0 0 0"  scale="0.1 2.64 3.08"
           circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Future"
           shadow></a-entity>
 
         <a-entity id="Portal-Lobby" 
-          position="-4.7 2.2 0.1" rotation="0 0 0"  scale="0.1 2.64 3.08"
+          position="0 2.1 -12" rotation="0 0 0" scale="3 3 1"
           circles-portal= "img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Lobby"
           shadow>
         </a-entity>
