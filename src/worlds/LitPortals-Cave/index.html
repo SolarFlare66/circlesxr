@@ -195,9 +195,9 @@
                 circles-pickup-networked></a-entity>
 
       <a-entity id="ivoryBison-artefact"
-                position="-7.8 0.8 -20.2" rotation="0 85 0" scale="1.4 1.4 1.4"
+                position="-7.8 0.9 -20.2" rotation="0 85 0" scale="2.5 2.5 2.5"
                 gltf-model="#sculptureModel"
-                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:4 4 4;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Ivory Bison Carving;
                                   description:The Neolithic ivory bison is a carved figure from the Magdalenian period (around 12,000 to 17,000 years ago) made from ivory. It represents the importance of animals, particularly bison, in the lives and possibly spiritual beliefs of prehistoric humans.;
@@ -205,13 +205,16 @@
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Carved Figure;"
+                                  label_text:Carved Figure;
+                                  pickupPosition: 0 -1 1; 
+                                  pickupScale: 2.5 2.5 2.5"
+                                  
                 circles-pickup-networked></a-entity>    
 
       <a-entity id="venus-artefact"
                 position="5.9 1.116 -7.1" rotation="0 250 0" scale="1.2 1.2 1.2"
                 gltf-model="#sculpture2Model"
-                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:2.5 2.5 2.5;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Venus of Brassempouy;
                                   description:The image depicts the Venus of Brassempouy, an ivory carving of a human head dating back approximately 23,000 years. This artifact is one of the earliest known representations of the human form and is considered a significant example of Upper Paleolithic art.;
@@ -243,7 +246,7 @@
       <a-entity id="figurine-artefact"
                 position="-7.029 0.3 -3.741" rotation="0 45 0" scale="2.4 2.4 2.4"
                 gltf-model="#figurineModel"
-                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale: 4 4 4;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Vase;
                                   description:Also known as Byblos figurines, are small statues found in ancient temples in Lebanon. This one specifically dates back to about 2450 years ago. These figurines can be from 3-38 cm tall and are made from a mix of different metals.;
@@ -252,20 +255,21 @@
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
                                   label_text:Phoenician Figurine;"
+                material="opacity: 0.5; transparent: true"
                 circles-pickup-networked></a-entity>
 
       <!--artifacts--> 
       <a-entity id="vaseSort" class="sorting_item" data-order="3" data-correct="false" sorting-collision
-        circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 1 1 1; dropRotation: 0 0 0; dropScale: 0.7 0.7 0.7" circles-pickup-networked
+        circles-pickup-object="pickupPosition: 0 0 -1; pickupScale: 1 1 1; dropRotation: 0 0 0; dropScale: 0.7 0.7 0.7" circles-pickup-networked
         position="12.5 2.3 -15.1" scale="0.7 0.7 0.7" gltf-model="#vaseModel"></a-entity>
       <a-entity id="sculptureSort" class="sorting_item" data-order="2" data-correct="false" sorting-collision
-        circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 2 2 2; dropRotation: 0 0 0; dropScale: 1.7 1.7 1.7" circles-pickup-networked
-        position="12.5 2 -14.3" scale="1.7 1.7 1.7" gltf-model="#sculptureModel"></a-entity>
+        circles-pickup-object="pickupPosition: 0 0 -1; pickupScale: 2 2 2; dropRotation: 0 0 0; dropScale: 1.7 1.7 1.7" circles-pickup-networked
+        position="12.5 2 -14.3" scale="2.5 2.5 2.5" gltf-model="#sculptureModel"></a-entity>
       <a-entity id="figurineSort" class="sorting_item" data-order="4" data-correct="false" sorting-collision
-        circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 1.8 1.8 1.8; dropRotation: 0 90 0; dropScale: 1.5 1.5 1.5" circles-pickup-networked
+        circles-pickup-object="pickupPosition: 0 0 -1; pickupScale: 1.8 1.8 1.8; dropRotation: 0 90 0; dropScale: 1.5 1.5 1.5" circles-pickup-networked
         position="12.5 1.95 -13.3" rotation="0 90 0" scale="1.5 1.5 1.5" gltf-model="#figurineModel"></a-entity>
       <a-entity id="sculpture2Sort" class="sorting_item" data-order="1" data-correct="false" sorting-collision
-        circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 1.7 1.7 1.7; dropRotation: 0 -90 0; dropScale: 1.4 1.4 1.4" circles-pickup-networked
+        circles-pickup-object="pickupPosition: 0 0 -1; pickupScale: 3 3 3; dropRotation: 0 -90 0; dropScale: 1.4 1.4 1.4" circles-pickup-networked
         position="12.5 1.75 -12.5" rotation="0 -90 0" scale="1.4 1.4 1.4" gltf-Model="#sculpture2Model"></a-entity>
       <!--<a-sphere id="artifact1" class="sorting_item" data-order="4" data-correct="false" sorting-collision 
         circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5" circles-pickup-networked
@@ -334,20 +338,6 @@
       <a-entity id="planeToPaint" class="interactive" visible="true" raycaster-listen="" position="-12.9167 2.01229 -14.21857" rotation="0 90 0" geometry="primitive: plane; height: 3.48; width: 6.14" material="color: #964B00"> </a-entity>
       <a-entity id="redPaint" class="interactive" geometry="primitive:box; depth: 0.4; height: 0.41; width: 0.41" position="-12.37939 0.14139 -16.14214" material="color: rgb(120,40,50)"></a-entity>
       <a-entity id="blackPaint" class="interactive" geometry="depth: 0.4; height: 0.41; width: 0.41" position="-12.37939 0.14139 -16.88249" material="color: rgb(0,0,0)"></a-entity>
-
-      <a-entity id = "drawGroup" position="-2.11 0 -14.4"  rotation="0 130 0">
-        <!-- Plane where the drawing will display -->
-        <!-- <a-entity update-canvas position="6.5 1.7 -8" rotation="0 -45 0" geometry=" primitive: plane; height:3; width:3;" material="src: #drawCanvas;"> </a-entity> -->
-
-        <!-- Button to start the interaction -->
-        <!-- removed toggle-canvas component from button  -->
-        <a-entity circles-button="type:cylinder" position="4.7 1.1 -8.8" >
-          <!-- TO FIX: clicking bubble triggers button -->
-          <a-entity circles-label="text:cave painting; offset:0 0.8 0; arrow_position:down;"></a-entity>
-        </a-entity>
-        <a-entity geometry="primitive:cylinder; radius:0.32; height:1;" position="4.7 0.5 -8.8" material="color:white"></a-entity>
-      </a-entity>
-    
 
       <!-- Area 2, top -->
       <a-entity id = "torchGroup">
@@ -442,4 +432,5 @@
     <circles-end-scripts/>
   </body>
   <script src='canvas.js'></script>
+  
 </html>
