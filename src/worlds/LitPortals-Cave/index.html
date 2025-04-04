@@ -30,6 +30,7 @@
     <script src="components/update-canvas.js"></script>
     <script src="components/raycaster-listen.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="js/opacity-toggle.js"></script>
   </head>
   <body>
     
@@ -81,8 +82,11 @@
         
         <a-asset-item id="rockModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/rock_model/scene.gltf"></a-asset-item>
         <a-asset-item id="torchModel"response-type="arraybuffer"src="assets/models/torch.glb"></a-asset-item>
+        <a-asset-item id="spearModel" response-type="arraybuffer" src="assets/models/low-poly-spear.glb"></a-asset-item>
+        <a-asset-item id="bonesModel" response-type="arraybuffer" src="assets/models/low_poly_bones_asset_pack.glb"></a-asset-item>
 
         <a-asset-item id="figurineModel" response-type="arraybuffer" src="assets/models/figurine_hand.glb"></a-asset-item>
+        <a-asset-item id="figurinePlainModel" response-type="arraybuffer" src="assets/models/figurine_plain.glb"></a-asset-item>
         <a-asset-item id="sculptureModel" response-type="arraybuffer" src="assets/models/sculpture.glb"></a-asset-item>
         <a-asset-item id="sculpture2Model" response-type="arraybuffer" src="assets/models/sculpture2.glb"></a-asset-item>
         <a-asset-item id="vaseModel" response-type="arraybuffer" src="assets/models/Pot2B.glb"></a-asset-item>
@@ -118,7 +122,7 @@
       <a-entity id="caveBase" position="-5.9 3.5 -10" scale= "0.4 0.4 0.18" gltf-model="#caveBaseModel"></a-entity>
       <a-entity id="caveBaseNavMesh" position="-5.2 -0.25 -13" scale= "0.39 0.39 0.17" gltf-model="#caveBaseModelNavMesh" nav-mesh visible = "false"> </a-entity>
       
-      <!--rocks-->
+      <!--rocks & decor-->
       <a-entity id="rock" position="0 0 3" scale= "0.001 0.001 0.001" gltf-model="#rockModel"></a-entity>
       <a-entity id="rock1" position="-1.83 0.145" scale= "0.005 0.005 0.005" gltf-model="#rockModel"></a-entity>
       <a-entity id="rockUnderBison" position="-7.788 -0.012 -20.360" scale="0.005 0.005 0.005" gltf-model="#rockModel"></a-entity>
@@ -126,6 +130,11 @@
       <a-entity id="rockByFigurine" position="-7.350 0 -3.681" scale="1 1.2 1" gltf-model="#bigRockModel"></a-entity>
       <a-entity id="rock2" position="5.442 -0.036 -6.259" scale="2 2 2" gltf-model="#medRockModel"></a-entity>
       <a-entity id="rock3" position="8.118 -0.152 -4.445" scale="2 2 2" gltf-model="#smallRockModel"></a-entity>
+      <a-entity id="rock4" position="-5.5 0 -26" scale="3 2 3" gltf-model="#bigRockModel"></a-entity>
+      <a-entity id="spear" position="3.317 -0.05 -1.77" scale="0.05 0.05 0.05" rotation="15 0 0" gltf-model="#spearModel"></a-entity>
+      <a-entity id="spear2" position="2.7 -0.05 -1.6" scale="0.05 0.05 0.05" rotation="8 0 -30" gltf-model="#spearModel"></a-entity>
+      <a-entity id="spear3" position="2.7 -0.05 -2" scale="0.05 0.05 0.05" rotation="20 0 -90" gltf-model="#spearModel"></a-entity>
+      <!--<a-entity id="bones" position="0 0 0" scale="1 1 1" gltf-model="#bonesModel"></a-entity>-->
 
       <!-- Campfire -->
       <a-entity id = "campfireSet">
@@ -185,19 +194,22 @@
                                   label_text:Activity Info;"
                 circles-pickup-networked></a-entity>
 
-      <a-entity id="cavePainting-artefact"
-                position="-11 1 -9.5" rotation="0 -45 0" scale="1 1 1"
+      <a-entity id="cavePainting-artefact" 
+                position="-12. 2.5 -6.6" rotation="0 90 0" scale="5 5 5"
                 geometry="primitive: plane; height:1; width:1;"
-                material="src: #cavePainting-img; side:double;"
-                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                material="src: #cavePainting-img; side:double; opacity: 0; transparent: true"
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.5 0.5 0.5;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Cave Painting;
-                                  description:Usually found on the wall or ceilings, cave paintings are the oldest form of art! They were found roughly 40,000 years ago, usually depicting animals. Researchers are not 100% sure of its purpose but suggest that they told stories.;
+                                  description:Cave paintings are the oldest form of art! They were found roughly 40,000 years ago, and were painted using natural pigments like charcoal. Researchers are not 100% sure of its purpose but suggest that they told stories.;
                                   title_back:;
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Cave Painting;"
+                                  label_text:Cave Painting;
+                                  label_offset:0 2 0;
+                                  visiblity:0"
+                opacity-toggle
                 circles-pickup-networked></a-entity>
 
       <a-entity id="ivoryBison-artefact"
@@ -250,11 +262,11 @@
                 position="12.868 0.558 -10.071" rotation="0 30 0" scale="0.4 0.7 0.4" gltf-model="#vaseModel"></a-entity>
       
       <a-entity id="figurine-artefact"
-                position="-7.029 0.3 -3.741" rotation="0 45 0" scale="2.4 2.4 2.4"
+                position="-7.029 0.2 -3.741" rotation="0 0 0" scale="2.4 2.4 2.4"
                 gltf-model="#figurineModel"
                 circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale: 4 4 4;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
-                                  title: Vase;
+                                  title: Phoenician Figurine;
                                   description:Also known as Byblos figurines, are small statues found in ancient temples in Lebanon. This one specifically dates back to about 2450 years ago. These figurines can be from 3-38 cm tall and are made from a mix of different metals.;
                                   title_back:;
                                   description_back:;
@@ -263,6 +275,16 @@
                                   label_text:Phoenician Figurine;"
                 material="opacity: 0.5; transparent: true"
                 circles-pickup-networked></a-entity>
+      <a-entity id="figurineDecor"
+                position="-6.7 0 -3.5" rotation="55 10 60" scale="2.2 2.5 2.2"
+                gltf-model="#figurinePlainModel"></a-entity>
+      <a-entity id="figurineDecor2"
+                position="-7.7 0.2 -3.6" rotation="0 -30 0" scale="2 2.5 2"
+                gltf-model="#figurinePlainModel"></a-entity>
+      <a-entity id="figurineDecor3"
+                position="-7.85 0.16 -3.86" rotation="0 -50 0" scale="1.7 2.3 1.7"
+                gltf-model="#figurinePlainModel"></a-entity>
+                  
 
       
       <!-- guide  -->
@@ -343,8 +365,6 @@
       <a-cylinder position="11.5 0.1 -14.4" color="tan" rotation="0 0 0" scale="0.3 0.3 0.3"></a-cylinder>
       <a-cylinder position="11.5 0.1 -13.1" color="tan" rotation="0 0 0" scale="0.3 0.3 0.3"></a-cylinder>
       <a-cylinder position="11.5 0.1 -11.8" color="tan" rotation="0 0 0" scale="0.3 0.3 0.3"></a-cylinder>
-      <!--<a-box position="9 0 0.5" color="brown" depth="4" height="1" width="1"></a-box>-->
-
 
       <!-- teleport pads-->
       <a-entity id="Portals and Pads">
@@ -399,7 +419,7 @@
             <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.2" color="yellow" animation="property: position; to: 0.1 0.05 0.1; dir: alternate; dur: 700; loop: true;"></a-cone>
             <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.15" color="red" animation="property: position; to: -0.1 0.05 0; dir: alternate; dur: 900; loop: true;"></a-cone>
           </a-entity>
-          <a-cylinder position="0 -0.37 0.226" scale="0.1 1.6 0.1" rotation="-30 0 0" color="brown"></a-cylinder>
+            <a-entity id="torchBody1" position="0 -0.37 0.474" scale="20 20 20" rotation="-40 0 0" gltf-model="#torchModel"></a-entity>
         </a-entity>
         <a-entity id = "torch2" position="-12.8 2.3 -10.55" rotation="0 -90 0">
           <a-entity id = "firelight" animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
@@ -415,7 +435,7 @@
               <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.2" color="yellow" animation="property: position; to: 0.1 0.05 0.1; dir: alternate; dur: 700; loop: true;"></a-cone>
               <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.15" color="red" animation="property: position; to: -0.1 0.05 0; dir: alternate; dur: 900; loop: true;"></a-cone>
             </a-entity>
-            <a-cylinder position="0 -0.37 0.226" scale="0.1 1.6 0.1" rotation="-30 0 0" color="brown"></a-cylinder>
+              <a-entity id="torchBody2" position="0 -0.37 0.36" scale="20 20 20" rotation="-40 0 0" gltf-model="#torchModel"></a-entity>
           </a-entity>
         <a-entity id = "torch3" position="-12.8 2.3 -17.8" rotation="0 -90 0">
             <a-entity id = "firelight" animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
@@ -431,7 +451,7 @@
                 <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.2" color="yellow" animation="property: position; to: 0.1 0.05 0.1; dir: alternate; dur: 700; loop: true;"></a-cone>
                 <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.15" color="red" animation="property: position; to: -0.1 0.05 0; dir: alternate; dur: 900; loop: true;"></a-cone>
               </a-entity>
-              <a-cylinder position="0 -0.37 0.226" scale="0.1 1.6 0.1" rotation="-30 0 0" color="brown"></a-cylinder>
+              <a-entity id="torchBody3" position="0 -0.37 0.378" scale="20 20 20" rotation="-40 0 0" gltf-model="#torchModel"></a-entity>
           </a-entity>
         <a-entity id = "torch4" position="12.2 2.3 -18" rotation="0 90 0">
               <a-entity id = "firelight" animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
@@ -447,7 +467,7 @@
                   <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.2" color="yellow" animation="property: position; to: 0.1 0.05 0.1; dir: alternate; dur: 700; loop: true;"></a-cone>
                   <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.15" color="red" animation="property: position; to: -0.1 0.05 0; dir: alternate; dur: 900; loop: true;"></a-cone>
                 </a-entity>
-                <a-cylinder position="0 -0.37 0.226" scale="0.1 1.6 0.1" rotation="-30 0 0" color="brown"></a-cylinder>
+                <a-entity id="torchBody4" position="0 -0.37 0.367" scale="20 20 20" rotation="-40 0 0" gltf-model="#torchModel"></a-entity>
           </a-entity>
         <a-entity id = "torch5" position="12.2 2.3 -11" rotation="0 90 0">
                 <a-entity id = "firelight" animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
@@ -463,8 +483,24 @@
                     <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.2" color="yellow" animation="property: position; to: 0.1 0.05 0.1; dir: alternate; dur: 700; loop: true;"></a-cone>
                     <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.15" color="red" animation="property: position; to: -0.1 0.05 0; dir: alternate; dur: 900; loop: true;"></a-cone>
                   </a-entity>
-                  <a-cylinder position="0 -0.37 0.226" scale="0.1 1.6 0.1" rotation="-30 0 0" color="brown"></a-cylinder>
+                  <a-entity id="torchBody5" position="0 -0.37 0.367" scale="20 20 20" rotation="-40 0 0" gltf-model="#torchModel"></a-entity>
           </a-entity>
+          <a-entity id = "torch6" position="3 1.7 -26.26" rotation="0 180 0">
+            <a-entity id = "firelight" animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
+              <a-entity position="0.0 1.5 0.0" animation="property:position; dur:163; to:0.0 1.55 0.0; loop:true; dir:alternate; easing:linear">
+                  <a-entity light="type: point; color: #FFA200; intensity: 2; distance: 20.0; castShadow: true; shadowMapHeight: 256; shadowMapWidth: 256;"
+                            animation="property:light.intensity; dur:270; dir:alternate; to:1; loop:true; easing:easeInOutExpo">
+                  </a-entity>
+              </a-entity>
+            </a-entity>
+              <a-entity position="0 0.348 -0.21" rotation="-30 0 0"id="fire">
+                <!-- Layer 1: Base fire cones -->
+                <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.1" color="orange" animation="property: position; to: 0 0.05 0; dir: alternate; dur: 800; loop: true;"></a-cone>
+                <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.2" color="yellow" animation="property: position; to: 0.1 0.05 0.1; dir: alternate; dur: 700; loop: true;"></a-cone>
+                <a-cone position="0 0 0" radius-bottom="0.15" radius-top="0" height="0.15" color="red" animation="property: position; to: -0.1 0.05 0; dir: alternate; dur: 900; loop: true;"></a-cone>
+              </a-entity>
+                <a-entity id="torchBody1" position="0 -0.37 0.2" scale="20 20 20" rotation="-35 0 0" gltf-model="#torchModel"></a-entity>
+            </a-entity>
       </a-entity>
       
       <!-- sky and lights -->
