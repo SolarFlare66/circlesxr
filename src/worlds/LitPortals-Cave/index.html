@@ -64,8 +64,9 @@
 
       <a-assets>
         <a-asset-item id="campfire-gltf"  src="/worlds/LitPortals-Cave/assets/models/campfire.glb" response-type="arraybuffer"></a-asset-item>
+        
+        <!-- AUDIO -->
         <audio id="fireCrackling-snd" src="assets/sounds/fire.mp3" preload="true"></audio>
-
         <a-sound id="ding" src="assets/sounds/ding.mp3" preload="auto" position="11.5 0.7 -14.4"></a-sound>
         <!--credit:https://pixabay.com/sound-effects/ding-101492/-->
         <a-sound id="buzzer" src="assets/sounds/buzzer.mp3" preload="auto" position="11.5 0.7 -14.4"></a-sound>
@@ -75,6 +76,8 @@
 
         <!-- credit: https://freesound.org/people/LittleRobotSoundFactory/sounds/270387/  -->
          <a-sound id="cave_Amb-snd" src="assets/sounds/cave_Ambience.wav" preload="true"></a-sound>
+
+         <a-sound id="clickSound" src="/worlds/LitPortals-Future/assets/sounds/click.mp3" preload="auto" ></a-sound>
 
         <!-- gltf models -->
         <a-asset-item id="caveBaseModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/cave.glb" preload ="auto"></a-asset-item>
@@ -401,7 +404,12 @@
       <!-- <a-entity id="planeToPaint" class="interactive" visible="true" raycaster-listen position="9.5 1.7 -3" rotation="0 -45 0" geometry=" primitive: plane; height:3; width:3;" material="color:#964B00;"> </a-entity> -->
       <a-entity id="planeToPaint" class="interactive" visible="true" raycaster-listen="" position="-12.9167 2.01229 -14.21857" rotation="0 90 0" geometry="primitive: plane; height: 3.48; width: 6.14" material="color: #964B00"> </a-entity>
       <a-entity id="redPaint" class="interactive" geometry="primitive:box; depth: 0.4; height: 0.41; width: 0.41" position="-12.37939 0.14139 -16.14214" material="color: rgb(120,40,50)"></a-entity>
-      <a-entity id="blackPaint" class="interactive" geometry="depth: 0.4; height: 0.41; width: 0.41" position="-12.37939 0.14139 -16.88249" material="color: rgb(0,0,0)"></a-entity>
+      <a-entity id="blackPaint" class="interactive" geometry="depth: 0.4; height: 0.41; width: 0.41" position="-12.37939 0.14139 -16.73" material="color: rgb(0,0,0)"></a-entity>
+      <a-entity id="yellowPaint" class="interactive" geometry="primitive:box; depth: 0.4; height: 0.41; width: 0.41" position="-12.37939 0.14139 -15.5" material="color: rgb(204,119,34)"></a-entity>
+      <a-entity id="whitePaint" class="interactive" geometry="primitive:box; depth: 0.4; height: 0.41; width: 0.41" position="-12.37939 0.14139 -14.9." material="color: rgb(230,215,203)"></a-entity>
+      <a-entity id="erasePainting" position="-12.58103 -0.0105 -11.73945" scale="1.60193 1.92231 1.60193" gltf-model="#bigRockModel" rotation="-81.23051844687733 51.8916415894084 -51.563909730593565" circles-interactive-object="type:outline; click_sound: #clickSound">
+        <a-entity id="eraseText" text="align: center; color: #c9c9c9; opacity: 0.8; value: clear painting " position="0.1378 0.12747 0.22337" scale="1.26045 1.26045 1.26045" rotation="-3.603904531372878 61.48123620651299 83.67762118988108" ></a-entity>
+      </a-entity>
 
       <!-- Area 2, top -->
       <a-entity id = "torchGroup">
