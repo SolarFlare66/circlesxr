@@ -86,7 +86,7 @@ AFRAME.registerComponent('raycaster-listen', {
 
     document.querySelector('#erasePainting').addEventListener('click', function(e){
       console.log('emmiting erasePainting event to server');
-      Context_AF.socket.emit('erasePainting', {room: CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
+      Context_AF.socket.emit('erasePainting', {world: CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
     });
 
     // function drawRecievedLine(){
@@ -96,10 +96,21 @@ AFRAME.registerComponent('raycaster-listen', {
     //   });
     // }; 
 
-    document.addEventListener(CIRCLES.EVENTS.READY, function() {
+  //   document.addEventListener(CIRCLES.EVENTS.READY, function() {
+  //     console.log('Circles is ready!');
+  //     startedDrawing = true;
+  // });
+
+
+    // when player joins world send req to server to send player the global array storing all lines
+    CIRCLES.getCirclesSceneElement().addEventListener(CIRCLES.EVENTS.READY, (e) => {
+
       console.log('Circles is ready!');
-      startedDrawing = true;
-  });
+
+      //Context_AF.socket.emit('loadPainting',{world:CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
+
+    });
+
 
     Context_AF.createNetworkingSystem = function () {
       Context_AF.socket = CIRCLES.getCirclesWebsocket();
@@ -108,6 +119,9 @@ AFRAME.registerComponent('raycaster-listen', {
 
       console.log('CONNECTED!!!!!!!!');
       console.log(Context_AF.socket.id);
+
+
+      Context_AF.socket.emit('loadPainting',{world:CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
 
       Context_AF.socket.on ("addNewLine", (pos,color) => {
         //console.log("array of intersection pos");
@@ -128,6 +142,48 @@ AFRAME.registerComponent('raycaster-listen', {
       Context_AF.socket.on('erasePainting', (data) => {
         console.log('Received erasePaintinge event from server');
         document.querySelectorAll('.drawingDot').forEach(e=> e.remove());
+      });
+
+      Context_AF.socket.on('loadPainting', (allPaintingPositions) => {
+        console.log('Received loadPainting event from server');
+
+        if (Array.isArray(allPaintingPositions) && !allPaintingPositions.length){
+          console.log('allPaintingPositions array is empty');
+          return;
+        } 
+        else {
+          console.log('there is stuff in the allPaintingPositions array');
+          console.log(allPaintingPositions);
+
+          // console.log(allPaintingPositions[1].lineColor);
+
+          // couldn't get it to work
+          // allPaintingPositions.forEach(drawLoadedPainting(allPaintingPositions.linePosition, allPaintingPositions.lineColor));
+
+
+          for (let i = 0; i < allPaintingPositions.length; i++){
+            // console.log('line ', allPaintingPositions[i].linePosition);
+            // console.log('color ', allPaintingPositions[i].lineColor);
+
+            // get an error when done using function
+            // drawLoadedPainting(allPaintingPositions[i].linePosition, allPaintingPositions[i].lineColor);
+
+            for (let j = 0; j< allPaintingPositions[i].linePosition.length; j++){
+              const dot = document.createElement('a-entity');
+              dot.setAttribute('geometry', {primitive: 'plane', height:0.05, width: 0.05});
+              dot.setAttribute('material', {color: allPaintingPositions[i].lineColor});
+              dot.object3D.rotation.y = THREE.MathUtils.degToRad(90);
+              dot.object3D.position.set((allPaintingPositions[i].linePosition[j].x +0.06), allPaintingPositions[i].linePosition[j].y, allPaintingPositions[i].linePosition[j].z);
+              dot.classList.add('drawingDot');
+              scene.appendChild(dot);
+            }
+
+
+          }
+
+
+        }
+        
       });
 
   };
@@ -179,3 +235,23 @@ function recordPositions(pos){
   positions.push({x: pos.x, y:pos.y, z: pos.z})
 
 };
+
+function drawLoadedPainting(line, color){
+  
+  //console.log('lines to draw:', line.length);
+ // console.log('color to draw:', color);
+
+
+  for (let i = 0; i< line.length; i++){
+    console.log(line[i]);
+    const dot = document.createElement('a-entity');
+    dot.setAttribute('geometry', {primitive: 'plane', height:0.05, width: 0.05});
+    dot.setAttribute('material', {color: color});
+    dot.object3D.rotation.y = THREE.MathUtils.degToRad(90);
+    dot.object3D.position.set((line[i].x +0.06), line[i].y, line[i].z);
+    dot.classList.add('drawingDot');
+    scene.appendChild(dot);
+  }
+
+
+  }; 

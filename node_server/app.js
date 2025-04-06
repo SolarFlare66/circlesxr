@@ -5,6 +5,11 @@ const dotenv = require('dotenv');
 const dotenvParseVariables = require('dotenv-parse-variables');
 const crypto = require('crypto');
 
+
+//trying store cave painting array for when new user joins
+let allPaintingPositions = [];
+
+
 let env = dotenv.config({})
 if (env.error) {
   throw 'Missing environment config. Copy .env.dist to .env and make any adjustments needed from the defaults';
@@ -428,6 +433,11 @@ io.on("connection", socket => {
     // console.log('server side positions:' + pos.lenght);
     // console.log(pos);
 
+
+    // adding all lines to global array so when a new player joins it will draw from this
+    allPaintingPositions.push({linePosition: pos, lineColor: color});
+    //console.log(allPaintingPositions);
+
     // only sending line data to others since players own line is drawn directly to front
     socket.broadcast.emit("addNewLine", pos, color);
   });
@@ -435,6 +445,14 @@ io.on("connection", socket => {
   socket.on('erasePainting',(data)=>{
     console.log('received erasePainting event from client: ', data);
     io.emit("erasePainting", data);
+
+    // clearing global server array
+    allPaintingPositions = [];
+  });
+
+  socket.on('loadPainting',(data)=>{
+    console.log(' loadPainting event from client: ', data);
+    socket.emit("loadPainting", allPaintingPositions);
   });
 
 });
