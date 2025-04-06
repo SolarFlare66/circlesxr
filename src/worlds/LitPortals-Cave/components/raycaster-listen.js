@@ -3,8 +3,10 @@
 
 let positions = [];
 
-let colorStr = 'rgb(0, 0,0)';
-let recieveColorStr = 'rgb(73, 47, 47)';
+let colorStr = 'rgb(20, 20,20)';
+
+// dont need this
+// let recieveColorStr = 'rgb(73, 47, 47)';
 
 
 AFRAME.registerComponent('raycaster-listen', {
@@ -60,19 +62,27 @@ AFRAME.registerComponent('raycaster-listen', {
 
     });
 
+    document.querySelector('#blackPaint').addEventListener('click', function(e){
+      console.log('black paint clicked');
+      colorStr = 'rgb(20,20,20)'
+      // Context_AF.socket.emit('black');
+    });
+
     document.querySelector('#redPaint').addEventListener('click', function(e){
       console.log('red paint clicked');
       colorStr = 'rgb(120,40,50)'
       // Context_AF.socket.emit('red');
-     
-  });
+     });
 
-  document.querySelector('#blackPaint').addEventListener('click', function(e){
-    console.log('black paint clicked');
-    colorStr = 'rgb(0,0,0)'
-    // Context_AF.socket.emit('black');
-   
-});
+    document.querySelector('#yellowPaint').addEventListener('click', function(e){
+      console.log('yellow paint clicked');
+      colorStr = 'rgb(204,119,34)'
+    });
+
+    document.querySelector('#whitePaint').addEventListener('click', function(e){
+      console.log('white paint clicked');
+      colorStr = 'rgb(230,215,203)'
+    });
 
     // function drawRecievedLine(){
     //   Context_AF.socket.on ("addNewLine", (pos) => {
