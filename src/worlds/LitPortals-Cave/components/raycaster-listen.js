@@ -84,6 +84,11 @@ AFRAME.registerComponent('raycaster-listen', {
       colorStr = 'rgb(230,215,203)'
     });
 
+    document.querySelector('#erasePainting').addEventListener('click', function(e){
+      console.log('emmiting erasePainting event to server');
+      Context_AF.socket.emit('erasePainting', {room: CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
+    });
+
     // function drawRecievedLine(){
     //   Context_AF.socket.on ("addNewLine", (pos) => {
     //     console.log("array of intersection pos");
@@ -118,6 +123,11 @@ AFRAME.registerComponent('raycaster-listen', {
           dot.classList.add('drawingDot');
           scene.appendChild(dot);
         }
+      });
+
+      Context_AF.socket.on('erasePainting', (data) => {
+        console.log('Received erasePaintinge event from server');
+        document.querySelectorAll('.drawingDot').forEach(e=> e.remove());
       });
 
   };

@@ -428,7 +428,13 @@ io.on("connection", socket => {
     // console.log('server side positions:' + pos.lenght);
     // console.log(pos);
 
+    // only sending line data to others since players own line is drawn directly to front
     socket.broadcast.emit("addNewLine", pos, color);
+  });
+
+  socket.on('erasePainting',(data)=>{
+    console.log('received erasePainting event from client: ', data);
+    io.emit("erasePainting", data);
   });
 
 });
