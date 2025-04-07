@@ -96,6 +96,7 @@
         <a-asset-item id="torchModel"response-type="arraybuffer"src="assets/models/torch.glb"></a-asset-item>
         <a-asset-item id="spearModel" response-type="arraybuffer" src="assets/models/low-poly-spear.glb"></a-asset-item>
         <a-asset-item id="bonesModel" response-type="arraybuffer" src="assets/models/low_poly_bones_asset_pack.glb"></a-asset-item>
+        <a-asset-item id="axeModel" responsetype="arraybuffer" src="assets/models/stone_axe.glb"></a-asset-item>
 
         <a-asset-item id="figurineModel" response-type="arraybuffer" src="assets/models/figurine_hand.glb"></a-asset-item>
         <a-asset-item id="figurinePlainModel" response-type="arraybuffer" src="assets/models/figurine_plain.glb"></a-asset-item>
@@ -153,6 +154,8 @@
       <a-entity id="spear" position="3.317 -0.05 -1.77" scale="0.05 0.05 0.05" rotation="15 0 0" gltf-model="#spearModel"></a-entity>
       <a-entity id="spear2" position="2.7 -0.05 -1.6" scale="0.05 0.05 0.05" rotation="8 0 -30" gltf-model="#spearModel"></a-entity>
       <a-entity id="spear3" position="2.7 -0.05 -2" scale="0.05 0.05 0.05" rotation="20 0 -90" gltf-model="#spearModel"></a-entity>
+      <a-entity id="axe" position="-6.667 -0.031 -23.799" scale="0.004 0.004 0.004" rotation="90 45 90" gltf-model="#axeModel"></a-entity>
+
       <!--<a-entity id="bones" position="0 0 0" scale="1 1 1" gltf-model="#bonesModel"></a-entity>-->
 
       <!-- Campfire -->
@@ -345,7 +348,7 @@
        <!-- guide for artefact sorting -->
        <a-entity id="guideSorting" position="10.35 0 -17.85" scale="5 5 5" rotation="0 -71.8 0" gltf-model="#guideModel">
         <!-- text bubbles -->
-        <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: [think of a title]; 
+        <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Revisit the past; 
         description_text_front: Artifacts tell us stories of the past. But only when we place them in the right time do they reveal their true meaning. Sort these objects by their age, and let’s uncover their history.;
         offset: 0 2.89 0;
         arrow_position: down;"></a-entity>
