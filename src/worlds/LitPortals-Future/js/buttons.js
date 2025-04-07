@@ -20,6 +20,11 @@ AFRAME.registerComponent("change-environment", {
         document.body.setAttribute("current-environment", currentEnvironment);
         console.log(`Button clicked! Changing environment to: ${currentEnvironment}`);
         socket.emit("changeEnvironment", currentEnvironment);
+
+        // guide text toggle
+        document.querySelectorAll('.guideText').forEach(e=> e.setAttribute('visible', false));
+        document.querySelector("#guideRed").setAttribute('visible',true);
+
       });
   
       // Initialize with the first environment
@@ -112,6 +117,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     position: `${randomX} ${randomY} ${randomZ}`
                 });
             } 
+
+             // guide text toggle
+            document.querySelectorAll('.guideText').forEach(e=> e.setAttribute('visible', false));
+            document.querySelector("#guideBlue").setAttribute('visible',true);
         });
     }
 });
@@ -163,6 +172,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                     lightState = (lightState + 1) % 5; // Update state and loop back
                     socket.emit("changeLightState", lightState);
+
+                     // guide text toggle
+                    document.querySelectorAll('.guideText').forEach(e=> e.setAttribute('visible', false));
+                    document.querySelector("#guideYellow").setAttribute('visible',true);
                 });                
             }
         }
@@ -224,6 +237,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Emit event to server
                 socket.emit("changeLightColor", { color: colors[colorIndex] });
+
+                 // guide text toggle
+                document.querySelectorAll('.guideText').forEach(e=> e.setAttribute('visible', false));
+                document.querySelector("#guideGreen").setAttribute('visible',true);
             });
 
             // Listen for updates from server

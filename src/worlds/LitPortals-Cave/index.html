@@ -21,6 +21,8 @@
 
     <!-- component for the guide's event triggers  -->
     <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.3/dist/aframe-physics-system.js"></script>
 
 
     <script src="js/sorting-component.js"></script> 
@@ -29,6 +31,7 @@
     <script src="components/toggle-canvas.js"></script>
     <script src="components/update-canvas.js"></script>
     <script src="components/raycaster-listen.js"></script>
+    <script src="components/guide-collision.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/opacity-toggle.js"></script>
   </head>
@@ -59,7 +62,7 @@
    
 
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
-    <a-scene circles_scene_properties >
+    <a-scene circles_scene_properties physics=" driver: ammo; debug: true; debugDrawMode: 1;">
       <a-light type="ambient" color="#666"></a-light>
 
       <a-assets>
@@ -294,15 +297,20 @@
       <a-entity id="figurineDecor3"
                 position="-7.85 0.16 -3.86" rotation="0 -50 0" scale="1.7 2.3 1.7"
                 gltf-model="#figurinePlainModel"></a-entity>
-                  
+    
+                
+
+
 
       
       <!-- guide  -->
+
+
       <a-entity id="guideGuy" position="-2.22576 0 -3.70559" scale="5 5 5" rotation="0 42.224697669961145 0" gltf-model="assets/models/guy_texture.glb">
         
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Welcome Traveler!; 
-        description_text_front: You’ve stepped into a place of ancient wisdom. Here, our ancestors painted stories, crafted tools, and honored the spirits. I will be your guide.; 
+        description_text_front: You have stepped into a place of ancient wisdom. Here, our ancestors painted stories, crafted tools, and honored the spirits. I will be your guide.; 
         offset: 1.3 2.09 0;
         arrow_position: left;"></a-entity>
         
@@ -310,16 +318,22 @@
 
 
       <!-- guide for fire -->
-      <a-entity position="1.98 0 -16.68" scale="5 5 5" rotation="0 -27.12 0" gltf-model="#guideModel">
+      <a-entity id="fireCollision" guide-collision="guideZone:guideFire" visible="false" position="0.16796 1.19204 -14" geometry="primitive:box; depth: 5.13; height: 2.37; width: 4.75" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+      <a-entity id="guideFire" position="1.98 0 -16.68" scale="0 0 0" rotation="0 -27.12 0" gltf-model="#guideModel"
+                animation__CollisionStart="property:scale; from:0 0 0; to: 5 5 5; startEvents:guideFireStart; dur:1000;"
+                animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guideFireEnd; dur:1000;">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Gather around; 
         description_text_front: Fire, our source of warmth, light, and protection. It brought people together to share stories and knowledge. And today, you will uncover the secrets of this cave just as they once did.;
-        offset: 1.3 2.09 0;
+        offset: 1.3 2.09 0; 
         arrow_position: left;"></a-entity>
       </a-entity>
 
       <!-- guide for cave painting -->
-      <a-entity position="-10.8 0 -10.55" scale="5 5 5" rotation="0 120.84 0" gltf-model="#guideModel">
+      <a-entity id="paintingCollision" guide-collision="guideZone:guidePainting" visible="false" position="-10.520 1.19204 -14" geometry="primitive:box; depth: 8.16; height: 2.37; width: 3.93" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+      <a-entity id="guidePainting" position="-10.8 0 -10.55" scale="0 0 0" rotation="0 120.84 0" gltf-model="#guideModel"
+                animation__CollisionStart="property:scale; from:0 0 0; to: 5 5 5; startEvents:guidePaintingStart; dur:1000;"
+                animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guidePaintingEnd; dur:1000;">>
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Leave your mark; 
         description_text_front: Look at these paintings. Symbols of animals, hands, and stories from the past. Now, it is your turn. Use your hands to leave your mark, just as the ancients did.;
@@ -328,7 +342,7 @@
       </a-entity>
 
        <!-- guide for artefact sorting -->
-       <a-entity position="10.35 0 -17.85" scale="5 5 5" rotation="0 -71.8 0" gltf-model="#guideModel">
+       <a-entity id="guideSorting" position="10.35 0 -17.85" scale="5 5 5" rotation="0 -71.8 0" gltf-model="#guideModel">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: [think of a title]; 
         description_text_front: Artifacts tell us stories of the past. But only when we place them in the right time do they reveal their true meaning. Sort these objects by their age, and let’s uncover their history.;
@@ -337,7 +351,7 @@
       </a-entity>
 
       <!-- guide for exit -->
-      <a-entity position="-3.05 0 -25.70" scale="5 5 5" rotation="0 16.27 0" gltf-model="#guideModel">
+      <a-entity  id="guideExit" position="-3.05 0 -25.70" scale="5 5 5" rotation="0 16.27 0" gltf-model="#guideModel">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: To the future!; 
         description_text_front: You have walked the path of the ancients, painted their stories, and uncovered their past. This knowledge is now yours to carry forward. The cave remembers.;
