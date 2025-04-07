@@ -82,6 +82,12 @@
 
          <a-sound id="clickSound" src="/worlds/LitPortals-Future/assets/sounds/click.mp3" preload="auto" ></a-sound>
 
+        <audio id="cavePaintingNarration" src="assets/sounds/voiceovers/CavePainting.mp3" preload="true"></audio>
+        <audio id="bisonNarration" src="assets/sounds/voiceovers/IvoryBison.mp3" preload="true"></audio>
+        <audio id="figurineNarration" src="assets/sounds/voiceovers/PhoenicianFigurine.mp3" preload="true"></audio>
+        <audio id="vaseNarration" src="assets/sounds/voiceovers/Vases.mp3" preload="true"></audio>
+        <audio id="venusNarration" src="assets/sounds/voiceovers/Venus.mp3" preload="true"></audio>
+
         <!-- gltf models -->
         <a-asset-item id="caveBaseModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/cave.glb" preload ="auto"></a-asset-item>
         <a-asset-item id="caveBaseModelNavMesh" response-type="arraybuffer" src="/worlds\LitPortals-Cave\assets\models\cave_NavMesh.glb" preload ="auto"></a-asset-item>
@@ -190,22 +196,7 @@
       </a-entity>
 
       <!--Cave base
-      <a-entity id="torch-model" position="11.21 1.43 -10.54" gltf-model="#torchModel" scale="26.2 26.2 26.2"rotation="0 0 26.35"></a-entity>
-        -->
-      <a-entity id="instructions-1"
-                position="6.3 1 -14" rotation="0 45 0" scale="1 1 1"
-                geometry="primitive:octahedron; radius:0.5;"
-                material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
-                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
-                                  textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
-                                  title:Sorting Game;
-                                  description:These vases are all mixed up! Can you help sort them out on the ground?;
-                                  title_back:About the vases:;
-                                  description_back: ;
-                                  description_offset:0 0.5 0;
-                                  desc_arrow_position:down;
-                                  label_text:Activity Info;"
-                circles-pickup-networked></a-entity>
+      <a-entity id="torch-model" position="11.21 1.43 -10.54" gltf-model="#torchModel" scale="26.2 26.2 26.2"rotation="0 0 26.35"></a-entity>-->
 
       <a-entity id="cavePainting-artefact" 
                 position="-12. 2.5 -6.6" rotation="0 90 0" scale="5 5 5"
@@ -221,7 +212,9 @@
                                   desc_arrow_position:down;
                                   label_text:Cave Painting;
                                   label_offset:0 2 0;
-                                  visiblity:0"
+                                  visiblity:0;
+                                  audio: #cavePaintingNarration;
+                                  volume: 3;"
                 opacity-toggle
                 circles-pickup-networked></a-entity>
 
@@ -238,7 +231,9 @@
                                   desc_arrow_position:down;
                                   label_text:Carved Figure;
                                   pickupPosition: 0 -1 1; 
-                                  pickupScale: 2.5 2.5 2.5"
+                                  pickupScale: 2.5 2.5 2.5;
+                                  audio: #bisonNarration;
+                                  volume: 3;"
                                   
                 circles-pickup-networked></a-entity>    
 
@@ -248,12 +243,14 @@
                 circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:2.5 2.5 2.5;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Venus of Brassempouy;
-                                  description:The image depicts the Venus of Brassempouy, an ivory carving of a human head dating back approximately 23,000 years. This artifact is one of the earliest known representations of the human form and is considered a significant example of Upper Paleolithic art.;
+                                  description:This sculpture is the Venus of Brassempouy, an ivory carving of a human head dating back approximately 23,000 years. This artifact is one of the earliest known representations of the human form and is considered a significant example of Upper Paleolithic art.;
                                   title_back:;
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Venus Ivory Sculpture;"
+                                  label_text:Venus Ivory Sculpture;
+                                  audio: #venusNarration;
+                                  volume: 3;"
                 circles-pickup-networked></a-entity>   
                 
       <a-entity id="vase-artefact"
@@ -267,7 +264,9 @@
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Vase Artifact;"
+                                  label_text:Vase Artifact;
+                                  audio: #vaseNarration;
+                                  volume: 3;"
                 circles-pickup-networked></a-entity>
       <a-entity id="vaseDecor"
                 position="4 -0.5 -25.6" rotation="0 70 0" scale="0.6 1.4 0.6" gltf-model="#vase2Model"></a-entity>
@@ -280,12 +279,14 @@
                 circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale: 4 4 4;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Phoenician Figurine;
-                                  description:Also known as Byblos figurines, are small statues found in ancient temples in Lebanon. This one specifically dates back to about 2450 years ago. These figurines can be from 3-38 cm tall and are made from a mix of different metals.;
+                                  description:Also known as Byblos figurines, these are small statues found in ancient temples in Lebanon. This one specifically dates back to about 2450 years ago. These statuettes can be from 3-38 cm tall and are made from a mix of different metals.;
                                   title_back:;
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Phoenician Figurine;"
+                                  label_text:Phoenician Figurine;
+                                  audio: #figurineNarration;
+                                  volume: 3;"
                 material="opacity: 0.5; transparent: true"
                 circles-pickup-networked></a-entity>
       <a-entity id="figurineDecor"
@@ -378,7 +379,7 @@
       <a-box class="collisionbox" id="goal-1" sorting-collision
         position="11.5 0.7 -15.7" color="tan" rotation="0 0 0" depth="0.1" height="0.6" width="0.3" opacity="0"></a-box>
       <a-box class="collisionbox" id="goal-2" sorting-collision
-        position="11.5 0.7 -14.4" color="tan" rotation="0 0 0" depth="0.1" height="0.6" width="0.3" opacity="0"></a-box>
+        position="11.5 0.7 -14.4" color="tan" rotation="0 0 0" depth="0.25" height="0.6" width="0.3" opacity="0"></a-box>
       <a-box class="collisionbox" id="goal-3" sorting-collision 
         position="11.5 0.7 -13.1" color="tan" rotation="0 0 0" depth="0.1" height="0.6" width="0.3" opacity="0"></a-box>
       <a-box class="collisionbox" id="goal-4" sorting-collision 
