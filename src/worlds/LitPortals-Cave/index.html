@@ -21,6 +21,8 @@
 
     <!-- component for the guide's event triggers  -->
     <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.3/dist/aframe-physics-system.js"></script>
 
 
     <script src="js/sorting-component.js"></script> 
@@ -29,6 +31,7 @@
     <script src="components/toggle-canvas.js"></script>
     <script src="components/update-canvas.js"></script>
     <script src="components/raycaster-listen.js"></script>
+    <script src="components/guide-collision.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/opacity-toggle.js"></script>
   </head>
@@ -59,7 +62,7 @@
    
 
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
-    <a-scene circles_scene_properties >
+    <a-scene circles_scene_properties physics=" driver: ammo; debug: true; debugDrawMode: 1;">
       <a-light type="ambient" color="#666"></a-light>
 
       <a-assets>
@@ -294,15 +297,21 @@
       <a-entity id="figurineDecor3"
                 position="-7.85 0.16 -3.86" rotation="0 -50 0" scale="1.7 2.3 1.7"
                 gltf-model="#figurinePlainModel"></a-entity>
-                  
+    
+                
+
+
 
       
       <!-- guide  -->
+
+      <a-entity guide-collision id="fireCollision"  position="0.16796 1.19204 -14" geometry="primitive:box; depth: 5.13; height: 2.37; width: 4.75" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+
       <a-entity id="guideGuy" position="-2.22576 0 -3.70559" scale="5 5 5" rotation="0 42.224697669961145 0" gltf-model="assets/models/guy_texture.glb">
         
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Welcome Traveler!; 
-        description_text_front: You’ve stepped into a place of ancient wisdom. Here, our ancestors painted stories, crafted tools, and honored the spirits. I will be your guide.; 
+        description_text_front: You have stepped into a place of ancient wisdom. Here, our ancestors painted stories, crafted tools, and honored the spirits. I will be your guide.; 
         offset: 1.3 2.09 0;
         arrow_position: left;"></a-entity>
         
@@ -310,7 +319,7 @@
 
 
       <!-- guide for fire -->
-      <a-entity position="1.98 0 -16.68" scale="5 5 5" rotation="0 -27.12 0" gltf-model="#guideModel">
+      <a-entity position="1.98 0 -16.68" scale="5 5 5" rotation="0 -27.12 0" gltf-model="#guideModel" material="opacity:0.5">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Gather around; 
         description_text_front: Fire, our source of warmth, light, and protection. It brought people together to share stories and knowledge. And today, you will uncover the secrets of this cave just as they once did.;
