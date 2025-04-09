@@ -55,6 +55,8 @@
           <a-asset-item id="RED_rock3" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/Mars/RED_rock3.glb"></a-asset-item>
           <a-asset-item id="robot" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/FancyBuilding/robot.glb"></a-asset-item>
 
+          <a-asset-item id="forestHolo" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/forest_hologram.glb"></a-asset-item>
+
           
           <!-- Background Music -->
           <audio id="breeze" src="/worlds/LitPortals-Future/assets/sounds/Breeze.mp3" preload="true"></audio>
@@ -161,6 +163,11 @@
       <a-entity id="sunlight" position="0 20 0" rotation="40 0 0" 
                 light="type:directional; intensity:4; color:#d5e4f5; castShadow:false;"></a-entity>
       <a-entity light="type:hemisphere; color:#FFFFFF; groundColor:#BCE2F4; intensity:3.0"></a-entity>
+
+
+    <!-- hologram test -->
+     <a-entity position = '2 0 -5' scale="8 8 8" gltf-model="#forestHolo"></a-entity>
+      
     <!-- guide  -->
     <a-entity id="guideGuy" position="0 0 -5" scale="5 5 5" rotation="0 0 0" gltf-model="assets/models/guy_texture.glb">
         
