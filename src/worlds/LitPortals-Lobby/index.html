@@ -24,6 +24,10 @@
         <!-- credit: "magic" music - https://soundcloud.com/royaltyfreebackgroundmusic/sets/creative-commons-music-365 -->
        
         <!-- gltf models -->
+        <a-asset-item id="lobbySign" src="assets/models/lobbysign.glb"></a-asset-item>
+        <a-asset-item id="pastSign" src="assets/models/pastsign.glb"></a-asset-item>
+        <a-asset-item id="futureSign" src="assets/models/futuresign.glb"></a-asset-item>
+
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets/>
       </a-assets>
@@ -66,7 +70,22 @@
        <!-- gems with text box
         can be instructions or welcome message
         these are networked-->
-        
+      
+        <a-entity id="click-me"
+        position="0 1 -2" rotation="0 0 0" scale="1 1 1"
+        geometry="primitive:octahedron; radius:0.5;"
+        material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
+        circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                          textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
+                          title: Intro;
+                          description:Welcome to Echoes of Creations! This is an experience highlighting art and creation from the past and the future. Before we get started, please check the backside of this text by clicking the button above this chat bubble.;
+                          title_back: Tutorial;
+                          description_back:Congrats! You made it to the other side. To make this a better experience, find other brown gems that look like me! Each of them hold a mini tutorial. To get there, you can use the blue circles on the ground to teleport.;
+                          description_offset:0 0.5 0;
+                          desc_arrow_position:down;
+                          label_text:Click me!;"
+        circles-pickup-networked></a-entity>
+
       <a-entity id="instructions-1"
                 position="-5.6 1 -4.7" rotation="0 0 0" scale="1 1 1"
                 geometry="primitive:octahedron; radius:0.5;"
@@ -74,12 +93,27 @@
                 circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title:Pick Up Practice;
-                                  description:This a tutorial where users can test some of the features that will be used in the other rooms;
-                                  title_back: How to?;
-                                  description_back: This can be done by click on an object, turning and using the ui elements to manipulate it.;
+                                  description:This a tutorial where users can test some of the features that will be used in the other rooms. Select a shape, then try the different buttons below to manipulate them!;
+                                  title_back:;
+                                  description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
                                   label_text:Pick Up Practice;"
+        circles-pickup-networked></a-entity>
+
+      <a-entity id="instructions-2"
+                position="4.8 1 -5.1" rotation="0 0 0" scale="1 1 1"
+                geometry="primitive:octahedron; radius:0.5;"
+                material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                                  textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
+                                  title: Using Portals;
+                                  description:Click on these blue portals to travel to different rooms. This one brings you back here, try it out! Once you're ready, head to The Cavern of Origins.;
+                                  title_back:;
+                                  description_back:;
+                                  description_offset:0 0.5 0;
+                                  desc_arrow_position:down;
+                                  label_text:Portal Practice;"
         circles-pickup-networked></a-entity>
 
       <!-- teleport pads-->
@@ -96,19 +130,22 @@
         <a-entity id="Portal-Cave"
           position="4.8 1.7 0.03" rotation="0 0 0" scale="0.1 3.8 3"
           circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Cave"
-          shadow></a-entity>
+          shadow 
+          text="align: center; color: #000000; opacity: 1; value: Cavern of Origins"></a-entity>
+        <a-entity id="cavePortalLabel" position="4.2 2.796 -1.446" rotation="0 -90 0" scale="2.7 2.7 2.7" gltf-model="#pastSign" shadow></a-entity>
 
-          <a-entity id="Portal-Future"
+        <a-entity id="Portal-Future"
           position="-4.7 2.2 0.1" rotation="0 0 0"  scale="0.1 2.64 3.08"
           circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Future"
           shadow></a-entity>
+          <a-entity id="futurePortalLabel" position="-4.2 2.884 -1.514" rotation="0 90 0" scale="2.7 2.7 2.7" gltf-model="#futureSign" shadow></a-entity>
 
         <a-entity id="Portal-Lobby" 
-          position="0 2.1 -12" rotation="0 0 0" scale="3 3 1"
+          position="4 2.1 -7" rotation="0 -30 0" scale="3 3 1"
           circles-portal= "img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Lobby"
           shadow>
         </a-entity>
-
+        <a-entity id="lobbyPortalLabel" position="2.5 2.9 -7" rotation="0 -30 0" scale="2.7 2.7 2.7" gltf-model="#lobbySign" shadow></a-entity>
       </a-entity>
      
       

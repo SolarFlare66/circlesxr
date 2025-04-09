@@ -82,14 +82,23 @@
 
          <a-sound id="clickSound" src="/worlds/LitPortals-Future/assets/sounds/click.mp3" preload="auto" ></a-sound>
 
+        <audio id="cavePaintingNarration" src="assets/sounds/voiceovers/CavePainting.mp3" preload="true"></audio>
+        <audio id="bisonNarration" src="assets/sounds/voiceovers/IvoryBison.mp3" preload="true"></audio>
+        <audio id="figurineNarration" src="assets/sounds/voiceovers/PhoenicianFigurine.mp3" preload="true"></audio>
+        <audio id="vaseNarration" src="assets/sounds/voiceovers/Vases.mp3" preload="true"></audio>
+        <audio id="venusNarration" src="assets/sounds/voiceovers/Venus.mp3" preload="true"></audio>
+
         <!-- gltf models -->
         <a-asset-item id="caveBaseModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/cave.glb" preload ="auto"></a-asset-item>
         <a-asset-item id="caveBaseModelNavMesh" response-type="arraybuffer" src="/worlds\LitPortals-Cave\assets\models\cave_NavMesh.glb" preload ="auto"></a-asset-item>
         
         <a-asset-item id="rockModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/rock_model/scene.gltf"></a-asset-item>
         <a-asset-item id="torchModel"response-type="arraybuffer"src="assets/models/torch.glb"></a-asset-item>
-        <a-asset-item id="spearModel" response-type="arraybuffer" src="assets/models/low-poly-spear.glb"></a-asset-item>
-        <a-asset-item id="bonesModel" response-type="arraybuffer" src="assets/models/low_poly_bones_asset_pack.glb"></a-asset-item>
+        <a-asset-item id="spearModel" response-type="arraybuffer" src="assets/models/low-poly-spear.glb"></a-asset-item> <!--spear creds https://sketchfab.com/3d-models/low-poly-spear-2760db822c9d409888a8868ec12243e9-->
+        <a-asset-item id="axeModel" responsetype="arraybuffer" src="assets/models/stone_axe.glb"></a-asset-item> <!--axe creds https://sketchfab.com/3d-models/stone-axe-429af689799a48e291855bc535827402-->
+        <a-asset-item id="boneModel" responsetype="arraybuffer" src="assets/models/bone.glb"></a-asset-item>
+        <a-asset-item id="fishboneModel" responsetype="arraybuffer" src="assets/models/fishbone.glb"></a-asset-item>
+        <a-asset-item id="skullModel" responsetype="arraybuffer" src="assets/models/skull.glb"></a-asset-item>
 
         <a-asset-item id="figurineModel" response-type="arraybuffer" src="assets/models/figurine_hand.glb"></a-asset-item>
         <a-asset-item id="figurinePlainModel" response-type="arraybuffer" src="assets/models/figurine_plain.glb"></a-asset-item>
@@ -143,11 +152,15 @@
       <a-entity id="rockByFigurine" position="-7.350 0 -3.681" scale="1 1.2 1" gltf-model="#bigRockModel"></a-entity>
       <a-entity id="rock2" position="5.442 -0.036 -6.259" scale="2 2 2" gltf-model="#medRockModel"></a-entity>
       <a-entity id="rock3" position="8.118 -0.152 -4.445" scale="2 2 2" gltf-model="#smallRockModel"></a-entity>
-      <a-entity id="rock4" position="-5.5 0 -26" scale="3 2 3" gltf-model="#bigRockModel"></a-entity>
+      <a-entity id="rock4" position="-5.5 0 -26" scale="3 2 3" gltf-model="#bigRockModel"></a-entity>   
       <a-entity id="spear" position="3.317 -0.05 -1.77" scale="0.05 0.05 0.05" rotation="15 0 0" gltf-model="#spearModel"></a-entity>
       <a-entity id="spear2" position="2.7 -0.05 -1.6" scale="0.05 0.05 0.05" rotation="8 0 -30" gltf-model="#spearModel"></a-entity>
       <a-entity id="spear3" position="2.7 -0.05 -2" scale="0.05 0.05 0.05" rotation="20 0 -90" gltf-model="#spearModel"></a-entity>
-      <!--<a-entity id="bones" position="0 0 0" scale="1 1 1" gltf-model="#bonesModel"></a-entity>-->
+      <a-entity id="axe" position="-6.667 -0.031 -23.799" scale="0.004 0.004 0.004" rotation="90 45 90" gltf-model="#axeModel"></a-entity>
+      <a-entity id="bone" position="0 0 0" scale="1 1 1" gltf-model="#boneModel"></a-entity>
+      <a-entity id="fishbone" position="0 1 0" scale="1 1 1" gltf-model="#fishboneModel"></a-entity>
+      <a-entity id="skull" position="0 2 0" scale="1 1 1" gltf-model="#skullModel"></a-entity>
+
 
       <!-- Campfire -->
       <a-entity id = "campfireSet">
@@ -190,22 +203,7 @@
       </a-entity>
 
       <!--Cave base
-      <a-entity id="torch-model" position="11.21 1.43 -10.54" gltf-model="#torchModel" scale="26.2 26.2 26.2"rotation="0 0 26.35"></a-entity>
-        -->
-      <a-entity id="instructions-1"
-                position="6.3 1 -14" rotation="0 45 0" scale="1 1 1"
-                geometry="primitive:octahedron; radius:0.5;"
-                material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
-                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
-                                  textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
-                                  title:Sorting Game;
-                                  description:These vases are all mixed up! Can you help sort them out on the ground?;
-                                  title_back:About the vases:;
-                                  description_back: ;
-                                  description_offset:0 0.5 0;
-                                  desc_arrow_position:down;
-                                  label_text:Activity Info;"
-                circles-pickup-networked></a-entity>
+      <a-entity id="torch-model" position="11.21 1.43 -10.54" gltf-model="#torchModel" scale="26.2 26.2 26.2"rotation="0 0 26.35"></a-entity>-->
 
       <a-entity id="cavePainting-artefact" 
                 position="-12. 2.5 -6.6" rotation="0 90 0" scale="5 5 5"
@@ -221,7 +219,9 @@
                                   desc_arrow_position:down;
                                   label_text:Cave Painting;
                                   label_offset:0 2 0;
-                                  visiblity:0"
+                                  visiblity:0;
+                                  audio: #cavePaintingNarration;
+                                  volume: 3;"
                 opacity-toggle
                 circles-pickup-networked></a-entity>
 
@@ -238,7 +238,9 @@
                                   desc_arrow_position:down;
                                   label_text:Carved Figure;
                                   pickupPosition: 0 -1 1; 
-                                  pickupScale: 2.5 2.5 2.5"
+                                  pickupScale: 2.5 2.5 2.5;
+                                  audio: #bisonNarration;
+                                  volume: 3;"
                                   
                 circles-pickup-networked></a-entity>    
 
@@ -248,12 +250,14 @@
                 circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:2.5 2.5 2.5;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Venus of Brassempouy;
-                                  description:The image depicts the Venus of Brassempouy, an ivory carving of a human head dating back approximately 23,000 years. This artifact is one of the earliest known representations of the human form and is considered a significant example of Upper Paleolithic art.;
+                                  description:This sculpture is the Venus of Brassempouy, an ivory carving of a human head dating back approximately 23,000 years. This artifact is one of the earliest known representations of the human form and is considered a significant example of Upper Paleolithic art.;
                                   title_back:;
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Venus Ivory Sculpture;"
+                                  label_text:Venus Ivory Sculpture;
+                                  audio: #venusNarration;
+                                  volume: 3;"
                 circles-pickup-networked></a-entity>   
                 
       <a-entity id="vase-artefact"
@@ -267,7 +271,9 @@
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Vase Artifact;"
+                                  label_text:Vase Artifact;
+                                  audio: #vaseNarration;
+                                  volume: 3;"
                 circles-pickup-networked></a-entity>
       <a-entity id="vaseDecor"
                 position="4 -0.5 -25.6" rotation="0 70 0" scale="0.6 1.4 0.6" gltf-model="#vase2Model"></a-entity>
@@ -280,12 +286,14 @@
                 circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale: 4 4 4;
                                   textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
                                   title: Phoenician Figurine;
-                                  description:Also known as Byblos figurines, are small statues found in ancient temples in Lebanon. This one specifically dates back to about 2450 years ago. These figurines can be from 3-38 cm tall and are made from a mix of different metals.;
+                                  description:Also known as Byblos figurines, these are small statues found in ancient temples in Lebanon. This one specifically dates back to about 2450 years ago. These statuettes can be from 3-38 cm tall and are made from a mix of different metals.;
                                   title_back:;
                                   description_back:;
                                   description_offset:0 0.5 0;
                                   desc_arrow_position:down;
-                                  label_text:Phoenician Figurine;"
+                                  label_text:Phoenician Figurine;
+                                  audio: #figurineNarration;
+                                  volume: 3;"
                 material="opacity: 0.5; transparent: true"
                 circles-pickup-networked></a-entity>
       <a-entity id="figurineDecor"
@@ -344,7 +352,7 @@
        <!-- guide for artefact sorting -->
        <a-entity id="guideSorting" position="10.35 0 -17.85" scale="5 5 5" rotation="0 -71.8 0" gltf-model="#guideModel">
         <!-- text bubbles -->
-        <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: [think of a title]; 
+        <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Revisit the past; 
         description_text_front: Artifacts tell us stories of the past. But only when we place them in the right time do they reveal their true meaning. Sort these objects by their age, and let’s uncover their history.;
         offset: 0 2.89 0;
         arrow_position: down;"></a-entity>
@@ -378,7 +386,7 @@
       <a-box class="collisionbox" id="goal-1" sorting-collision
         position="11.5 0.7 -15.7" color="tan" rotation="0 0 0" depth="0.1" height="0.6" width="0.3" opacity="0"></a-box>
       <a-box class="collisionbox" id="goal-2" sorting-collision
-        position="11.5 0.7 -14.4" color="tan" rotation="0 0 0" depth="0.1" height="0.6" width="0.3" opacity="0"></a-box>
+        position="11.5 0.7 -14.4" color="tan" rotation="0 0 0" depth="0.25" height="0.6" width="0.3" opacity="0"></a-box>
       <a-box class="collisionbox" id="goal-3" sorting-collision 
         position="11.5 0.7 -13.1" color="tan" rotation="0 0 0" depth="0.1" height="0.6" width="0.3" opacity="0"></a-box>
       <a-box class="collisionbox" id="goal-4" sorting-collision 
