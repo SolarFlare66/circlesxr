@@ -94,9 +94,11 @@
         
         <a-asset-item id="rockModel" response-type="arraybuffer" src="/worlds/LitPortals-Cave/assets/models/rock_model/scene.gltf"></a-asset-item>
         <a-asset-item id="torchModel"response-type="arraybuffer"src="assets/models/torch.glb"></a-asset-item>
-        <a-asset-item id="spearModel" response-type="arraybuffer" src="assets/models/low-poly-spear.glb"></a-asset-item>
-        <a-asset-item id="bonesModel" response-type="arraybuffer" src="assets/models/low_poly_bones_asset_pack.glb"></a-asset-item>
-        <a-asset-item id="axeModel" responsetype="arraybuffer" src="assets/models/stone_axe.glb"></a-asset-item>
+        <a-asset-item id="spearModel" response-type="arraybuffer" src="assets/models/low-poly-spear.glb"></a-asset-item> <!--spear creds https://sketchfab.com/3d-models/low-poly-spear-2760db822c9d409888a8868ec12243e9-->
+        <a-asset-item id="axeModel" responsetype="arraybuffer" src="assets/models/stone_axe.glb"></a-asset-item> <!--axe creds https://sketchfab.com/3d-models/stone-axe-429af689799a48e291855bc535827402-->
+        <a-asset-item id="boneModel" responsetype="arraybuffer" src="assets/models/bone.glb"></a-asset-item>
+        <a-asset-item id="fishboneModel" responsetype="arraybuffer" src="assets/models/fishbone.glb"></a-asset-item>
+        <a-asset-item id="skullModel" responsetype="arraybuffer" src="assets/models/skull.glb"></a-asset-item>
 
         <a-asset-item id="figurineModel" response-type="arraybuffer" src="assets/models/figurine_hand.glb"></a-asset-item>
         <a-asset-item id="figurinePlainModel" response-type="arraybuffer" src="assets/models/figurine_plain.glb"></a-asset-item>
@@ -150,13 +152,15 @@
       <a-entity id="rockByFigurine" position="-7.350 0 -3.681" scale="1 1.2 1" gltf-model="#bigRockModel"></a-entity>
       <a-entity id="rock2" position="5.442 -0.036 -6.259" scale="2 2 2" gltf-model="#medRockModel"></a-entity>
       <a-entity id="rock3" position="8.118 -0.152 -4.445" scale="2 2 2" gltf-model="#smallRockModel"></a-entity>
-      <a-entity id="rock4" position="-5.5 0 -26" scale="3 2 3" gltf-model="#bigRockModel"></a-entity>
+      <a-entity id="rock4" position="-5.5 0 -26" scale="3 2 3" gltf-model="#bigRockModel"></a-entity>   
       <a-entity id="spear" position="3.317 -0.05 -1.77" scale="0.05 0.05 0.05" rotation="15 0 0" gltf-model="#spearModel"></a-entity>
       <a-entity id="spear2" position="2.7 -0.05 -1.6" scale="0.05 0.05 0.05" rotation="8 0 -30" gltf-model="#spearModel"></a-entity>
       <a-entity id="spear3" position="2.7 -0.05 -2" scale="0.05 0.05 0.05" rotation="20 0 -90" gltf-model="#spearModel"></a-entity>
       <a-entity id="axe" position="-6.667 -0.031 -23.799" scale="0.004 0.004 0.004" rotation="90 45 90" gltf-model="#axeModel"></a-entity>
+      <a-entity id="bone" position="0 0 0" scale="1 1 1" gltf-model="#boneModel"></a-entity>
+      <a-entity id="fishbone" position="0 1 0" scale="1 1 1" gltf-model="#fishboneModel"></a-entity>
+      <a-entity id="skull" position="0 2 0" scale="1 1 1" gltf-model="#skullModel"></a-entity>
 
-      <!--<a-entity id="bones" position="0 0 0" scale="1 1 1" gltf-model="#bonesModel"></a-entity>-->
 
       <!-- Campfire -->
       <a-entity id = "campfireSet">
