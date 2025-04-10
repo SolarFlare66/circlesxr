@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const starId = `starModels-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
                 socket.emit("spawnModel", {
-                    mardsId: starId, 
+                    starId: starId, 
                     model: starModel,
                     position: `${randomX} ${randomY} ${randomZ}`
                 });
