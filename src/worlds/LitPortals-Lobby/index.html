@@ -6,6 +6,7 @@
     <circles-start-scripts/>
 
     <!-- add your custom scripts here -->
+    <script src="js/enter-play-audio.js"></script>
 
   </head>
   <body>
@@ -27,6 +28,14 @@
         <a-asset-item id="lobbySign" src="assets/models/lobbysign.glb"></a-asset-item>
         <a-asset-item id="pastSign" src="assets/models/pastsign.glb"></a-asset-item>
         <a-asset-item id="futureSign" src="assets/models/futuresign.glb"></a-asset-item>
+
+         <!--Guide-->
+         <a-asset-item id="guideModel" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/guy_texture.glb"></a-asset-item>
+        
+        <!-- audio -->
+        <audio id="peace" src="/worlds/LitPortals-Future/assets/sounds/Peace.mp3" preload="true"></audio>
+
+         
 
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets/>
@@ -71,9 +80,18 @@
         can be instructions or welcome message
         these are networked-->
       
-        <a-entity id="guideGuy"></a-entity>
+        <a-entity id="guideGuy" circles-lookat enter-play-audio position="0 0 -2" scale="5 5 5" rotation="0 0 0" sound="src: #peace;" gltf-model="#guideModel" >
+          <a-entity id="guideWelcome" scale=" 0.2 0.2 0.2" 
+          circles-description="title_text_front: Intro; 
+          description_text_front: Welcome to Echoes of Creations! This is an experience highlighting art and creation from the past and the future. I will be your guide but before we get started, please check the backside of this text by clicking the circular arrow button.;
+          title_text_back: Tutorial;
+          description_text_back: Congrats! You made it to the other side. To make this a better experience, find the brown gems around the area! Each of them hold a mini tutorial. To get there, you can use the green circles on the ground to teleport.;
+          offset: 1.3 2.09 0;
+          arrow_position: left;">
+        </a-entity>
+        </a-entity>
 
-        <a-entity id="click-me"
+        <!-- <a-entity id="click-me"
         position="0 1 -2" rotation="0 0 0" scale="1 1 1"
         geometry="primitive:octahedron; radius:0.5;"
         material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
@@ -86,7 +104,7 @@
                           description_offset:0 0.5 0;
                           desc_arrow_position:down;
                           label_text:Click me!;"
-        circles-pickup-networked></a-entity>
+        circles-pickup-networked></a-entity> -->
 
       <a-entity id="instructions-1"
                 position="-5.6 1 -4.7" rotation="0 0 0" scale="1 1 1"
