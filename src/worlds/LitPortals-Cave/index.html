@@ -62,7 +62,7 @@
    
 
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
-    <a-scene circles_scene_properties physics=" driver: ammo; debug: true; debugDrawMode: 1;">
+    <a-scene circles_scene_properties physics=" driver: ammo; debug: false; debugDrawMode: 1;">
       <a-light type="ambient" color="#666"></a-light>
 
       <a-assets>
@@ -313,9 +313,10 @@
       
       <!-- guide  -->
 
-
-      <a-entity id="guideGuy" position="-2.22576 0 -3.70559" scale="5 5 5" rotation="0 42.224697669961145 0" gltf-model="assets/models/guy_texture.glb">
-        
+      <a-entity id="welcomeCollision" guide-collision="guideZone:guideWelcome" visible="false" position="0.168 1.19204 -4.0" geometry="primitive:box; depth: 8.280; height: 2.37; width: 7.310" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+      <a-entity id="guideWelcome" circles-lookat position="-2.22576 0 -3.70559" scale="0 0 0" rotation="0 42.224697669961145 0" gltf-model="assets/models/guy_texture.glb"
+                animation__CollisionStart="property:scale; from:0 0 0; to: 5 5 5; startEvents:guideWelcomeStart; dur:1000;"
+                animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guideWelcomeEnd; dur:1000;">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Welcome Traveler!; 
         description_text_front: You have stepped into a place of ancient wisdom. Here, our ancestors painted stories, crafted tools, and honored the spirits. I will be your guide.; 
@@ -326,8 +327,8 @@
 
 
       <!-- guide for fire -->
-      <a-entity id="fireCollision" guide-collision="guideZone:guideFire" visible="false" position="0.16796 1.19204 -14" geometry="primitive:box; depth: 5.13; height: 2.37; width: 4.75" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
-      <a-entity id="guideFire" position="1.98 0 -16.68" scale="0 0 0" rotation="0 -27.12 0" gltf-model="#guideModel"
+      <a-entity id="fireCollision" guide-collision="guideZone:guideFire" visible="false" position="0.16796 1.19204 -14" geometry="primitive:box; depth: 8.34; height: 2.37; width: 7.44" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+      <a-entity id="guideFire" circles-lookat position="1.98 0 -16.68" scale="0 0 0" rotation="0 -27.12 0" gltf-model="#guideModel"
                 animation__CollisionStart="property:scale; from:0 0 0; to: 5 5 5; startEvents:guideFireStart; dur:1000;"
                 animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guideFireEnd; dur:1000;">
         <!-- text bubbles -->
@@ -338,10 +339,10 @@
       </a-entity>
 
       <!-- guide for cave painting -->
-      <a-entity id="paintingCollision" guide-collision="guideZone:guidePainting" visible="false" position="-10.520 1.19204 -14" geometry="primitive:box; depth: 8.16; height: 2.37; width: 3.93" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
-      <a-entity id="guidePainting" position="-10.8 0 -10.55" scale="0 0 0" rotation="0 120.84 0" gltf-model="#guideModel"
+      <a-entity id="paintingCollision" guide-collision="guideZone:guidePainting" visible="false" position="-10.520 1.19204 -14" geometry="primitive:box; depth: 9.65; height: 2.37; width: 7.41" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+      <a-entity id="guidePainting" circles-lookat position="-10.8 0 -10.55" scale="0 0 0" rotation="0 120.84 0" gltf-model="#guideModel"
                 animation__CollisionStart="property:scale; from:0 0 0; to: 5 5 5; startEvents:guidePaintingStart; dur:1000;"
-                animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guidePaintingEnd; dur:1000;">>
+                animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guidePaintingEnd; dur:1000;">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Leave your mark; 
         description_text_front: Look at these paintings. Symbols of animals, hands, and stories from the past. Now, it is your turn. Use your hands to leave your mark, just as the ancients did.;
@@ -350,7 +351,10 @@
       </a-entity>
 
        <!-- guide for artefact sorting -->
-       <a-entity id="guideSorting" position="10.35 0 -17.85" scale="5 5 5" rotation="0 -71.8 0" gltf-model="#guideModel">
+       <a-entity id="sortingCollision" guide-collision="guideZone:guideSorting" visible="false" position="10.07 1.19204 -14.26" geometry="primitive:box; depth: 8.94; height: 2.37; width: 4.57" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+       <a-entity id="guideSorting" circles-lookat position="10.35 0 -17.85" scale="0 0 0" rotation="0 -71.8 0" gltf-model="#guideModel"
+                animation__CollisionStart="property:scale; from:0 0 0; to: 5 5 5; startEvents:guideSortingStart; dur:1000;"
+                animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guideSortingEnd; dur:1000;">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: Revisit the past; 
         description_text_front: Artifacts tell us stories of the past. But only when we place them in the right time do they reveal their true meaning. Sort these objects by their age, and let’s uncover their history.;
@@ -359,7 +363,10 @@
       </a-entity>
 
       <!-- guide for exit -->
-      <a-entity  id="guideExit" position="-3.05 0 -25.70" scale="5 5 5" rotation="0 16.27 0" gltf-model="#guideModel">
+      <a-entity id="exitCollision" guide-collision="guideZone:guideExit" visible="false" position="-0.16 1.19204 -24.04" geometry="primitive:box; depth: 8.82; height: 2.37; width: 9.77" ammo-body="type: static; emitCollisionEvents: true" ammo-shape="type: box"></a-entity>
+      <a-entity id="guideExit" circles-lookat position="-3.05 0 -25.70" scale="0 0 0" rotation="0 16.27 0" gltf-model="#guideModel"
+                animation__CollisionStart="property:scale; from:0 0 0; to: 5 5 5; startEvents:guideExitStart; dur:1000;"
+                animation__CollisionEnd="property:scale; from:5 5 5; to: 0 0 0; startEvents:guideExitEnd; dur:1000;">
         <!-- text bubbles -->
         <a-entity scale=" 0.2 0.2 0.2" circles-description="title_text_front: To the future!; 
         description_text_front: You have walked the path of the ancients, painted their stories, and uncovered their past. This knowledge is now yours to carry forward. The cave remembers.;
@@ -400,6 +407,8 @@
 
       <!-- teleport pads-->
       <a-entity id="Portals and Pads">
+
+        <a-entity id="spawnPoint" circles-checkpoint="useDefaultModel: false" position="0 0 1.63513" circles-spawnpoint></a-entity>
         <a-entity circles-checkpoint position="4.4 0 -21.5"></a-entity>
         <a-entity circles-checkpoint position="-7 0 -19"></a-entity>
         <a-entity circles-checkpoint position="5 0 -7"></a-entity>
