@@ -49,16 +49,15 @@ const contactModels = [
     "#building5Model", "#building6Model", "#building7Model", "#building8Model" ];
 
 const marsModels = [
-    "#RED_rock1", "#RED_rock2", "#RED_rock3", "#mars", "#alien", "#robot" ];    
-const starModels = [
-    "#oceanHolo", "#forestHolo" ];    
+    "#RED_rock1", "#RED_rock2", "#RED_rock3", "#alien", "#robot" ];   
 
+const starryModels = [ "#oceanHolo", "#forestHolo", "#oceanHolo", "#forestHolo" ];    
 
+let currentStarIndex = 0;
 let currentContactIndex = 0;
 let currentForestIndex = 0;
 let currentArchesIndex = 0;
 let currentMarsIndex = 0;
-let currentStarIndex = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
     const blueButton = document.querySelector("#blue_button .button");
@@ -112,7 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("yavapai");
                 const marsModel = marsModels[currentMarsIndex];
                 currentMarsIndex = (currentMarsIndex + 1) % marsModels.length;
-                
+                console.log(currentMarsIndex);
+
                 const mardsId = `marsModels-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
                 socket.emit("spawnModel", {
@@ -122,9 +122,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             } else if (currentEnvironment === "starry") {
                 console.log("starry");
-                const starModel = starModels[currentStarIndex];
-                currentStarIndex = (currentStarIndex + 1) % currentStarIndex.length;
-                
+                const starModel = starryModels[currentStarIndex];
+                currentStarIndex = (currentStarIndex + 1) % starryModels.length;
+                console.log(currentStarIndex);
+
                 const starId = `starModels-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
                 socket.emit("spawnModel", {
