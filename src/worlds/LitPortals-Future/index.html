@@ -1,0 +1,233 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Circles' head scripts [REQUIRED] -->
+    <circles-start-scripts/>
+
+    <!-- add your custom scripts here -->
+    <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/Future_networking.js"></script> 
+    <script src="js/buttons.js"></script> 
+    <script src="js/enter-play-audio.js"></script>
+
+  </head>
+  <body>
+    
+    <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
+    <circles-start-ui/>
+
+    <!-- a-scene with 'circles-properties' component [REQUIRED] -->
+    <a-scene circles_scene_properties fog="type: none;" circles-networked-entity>
+      <a-entity environment="preset:starry; active:true;" change-environment></a-entity>
+
+      <a-assets>
+          <!--Models-->
+          <a-asset-item id="building1Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building1/building1.glb"></a-asset-item>
+          <a-asset-item id="building2Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building2/building2.glb"></a-asset-item>
+          <a-asset-item id="building3Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building3/building3.glb"></a-asset-item>
+          <a-asset-item id="building4Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building4/building4.glb"></a-asset-item>
+          <a-asset-item id="building5Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building5/building5.glb"></a-asset-item>
+          <a-asset-item id="building6Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building6/building6.glb"></a-asset-item>
+          <a-asset-item id="building7Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building7/building7.glb"></a-asset-item>
+          <a-asset-item id="building8Model" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/building8/building8.glb"></a-asset-item>
+          <a-asset-item id="alienbuilding" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/FancyBuilding/alienbuilding2.glb"></a-asset-item>
+
+          <a-asset-item id="bird" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/bird.glb"></a-asset-item>
+          <a-asset-item id="bunny" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/bunny.glb"></a-asset-item>
+          <a-asset-item id="bush_flowers" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/bush_flowers.glb"></a-asset-item>
+          <a-asset-item id="bush" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/bush_plain.glb"></a-asset-item>
+          <a-asset-item id="deer" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/deer.glb"></a-asset-item>
+          <a-asset-item id="fox" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/fox.glb"></a-asset-item>
+          <a-asset-item id="oak" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/oak.glb"></a-asset-item>
+          <a-asset-item id="pine" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/pine.glb"></a-asset-item>
+
+          <a-asset-item id="dolphin" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/dolphin.glb"></a-asset-item>
+          <a-asset-item id="fish" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/fish.glb"></a-asset-item>
+          <a-asset-item id="jelly_pink" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/jellyfish_pink.glb"></a-asset-item>
+          <a-asset-item id="jelly_blue" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/jellyfish_turquoise.glb"></a-asset-item>
+          <a-asset-item id="shark" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/shark.glb"></a-asset-item>
+
+          <a-asset-item id="alien" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/Mars/alien.glb"></a-asset-item>
+          <a-asset-item id="mars" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/Mars/mars.glb"></a-asset-item>
+          <a-asset-item id="RED_rock1" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/Mars/RED_rock1.glb"></a-asset-item>
+          <a-asset-item id="RED_rock2" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/Mars/RED_rock2.glb"></a-asset-item>
+          <a-asset-item id="RED_rock3" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/Mars/RED_rock3.glb"></a-asset-item>
+          <a-asset-item id="robot" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/FancyBuilding/robot.glb"></a-asset-item>
+
+          <a-asset-item id="oceanHolo" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/ocean_hologram.glb"></a-asset-item>
+          <a-asset-item id="forestHolo" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/forest_hologram.glb"></a-asset-item>
+
+          
+          <!-- Background Music -->
+          <audio id="breeze" src="/worlds/LitPortals-Future/assets/sounds/Breeze.mp3" preload="true"></audio>
+          <audio id="eternity" src="/worlds/LitPortals-Future/assets/sounds/Eternity.mp3" preload="true"></audio>
+          <audio id="exploration" src="/worlds/LitPortals-Future/assets/sounds/Exploration.mp3" preload="true"></audio>
+          <audio id="hybrid" src="/worlds/LitPortals-Future/assets/sounds/Hybrid.mp3" preload="true"></audio>
+          <audio id="peace" src="/worlds/LitPortals-Future/assets/sounds/Peace.mp3" preload="true"></audio>
+         
+          <!--Guide-->
+          <a-asset-item id="guideModel" response-type="arraybuffer" src="assets/models/guy_texture.glb"></a-asset-item>
+          
+          <!-- Button Sound Effect -->
+          <audio id="ding" src="assets/sounds/ding.mp3" preload="true"></audio>
+          <audio id="click" src="assets/sounds/click.mp3" preload="true"></audio>
+        
+            <!-- gltf models -->
+       
+
+        <!-- Circles' built-in assets [REQUIRED] -->
+        <circles-assets/>
+      </a-assets>
+     
+      <!-- Circles' built-in manager and avatar [REQUIRED] -->
+      <circles-manager-avatar/>
+      
+       <!-- Sounds -->
+
+       <a-entity id="bg-music" circles-sound="src:#hybrid; autoplay:true; loop:true; type:music; volume: 0.25"></a-entity>
+       <a-entity id="button-sound" sound="src:#click"></a-entity>
+
+      <!-- Area 1, with some spawnpoints -->
+      <a-entity id="red_button" position="3 0.6 -1">
+        <a-entity class="button interactive" position="0 0.6 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(255, 100, 100)"
+                    animation__mouseenter="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:mouseenter; dur:200"
+                    animation__mouseleave="property:material.color; type:color; to:rgb(255, 100, 100); startEvents:mouseleave; dur:200"
+                    animation__click="property:position.y; from:0.55; to:0.6; startEvents:click; dur:300" sound="on: click; src: #click; poolSize:10;"
+                    shadow change-music></a-entity>
+        <a-entity position="0 0.3 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(255, 255, 255)" shadow></a-entity>
+    </a-entity>
+    <!-- blue button -->
+    <a-entity id="blue_button" position="-3 0.6 -1">
+      <a-entity class="button interactive" position="0 0.6 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(100, 100, 255)"
+                animation__mouseenter="property:material.color; type:color; to:rgb(0, 0, 255); startEvents:mouseenter; dur:200"
+                animation__mouseleave="property:material.color; type:color; to:rgb(100, 100, 255); startEvents:mouseleave; dur:200"
+                animation__click="property:position.y; from:0.55; to:0.6; startEvents:click; dur:300"  sound="on: click; src: #click; poolSize:10"
+                shadow></a-entity>
+      <a-entity position="0 0.3 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(255, 255, 255)" shadow></a-entity>
+  </a-entity>
+    <!-- green button -->
+    <a-entity id="green_button" position="4 0.6 -1">
+        <a-entity class="button interactive" position="0 0.6 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(100, 255, 100)"
+                    animation__mouseenter="property:material.color; type:color; to:rgb(0, 255, 0); startEvents:mouseenter; dur:200"
+                    animation__mouseleave="property:material.color; type:color; to:rgb( 100, 255, 100); startEvents:mouseleave; dur:200"
+                    animation__click="property:position.y; from:0.55; to:0.6; startEvents:click; dur:300"  sound="on: click; src: #click; poolSize:10"
+                    shadow></a-entity>
+
+        <a-entity position="0 0.3 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(255, 255, 255)" shadow></a-entity>
+        <a-entity position="-0.5 -0.4 0" geometry="primitive:box; width:2; depth:0.5; height:2;" material="color:rgb(255, 255, 255)" shadow></a-entity>
+
+      </a-entity>
+    <!-- yellow button -->
+    <a-entity id="yellow_button" position="-4 0.6 -1">
+        <a-entity class="button interactive" position="0 0.6 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(255, 255, 100)"
+                    animation__mouseenter="property:material.color; type:color; to:rgb(255, 255, 0); startEvents:mouseenter; dur:200"
+                    animation__mouseleave="property:material.color; type:color; to:rgb(255, 255, 100); startEvents:mouseleave; dur:200"
+                    animation__click="property:position.y; from:0.55; to:0.6; startEvents:click; dur:300"  sound="on: click; src: #click; poolSize:10"
+                    shadow></a-entity>
+        <a-entity position="0 0.3 0" geometry="primitive:box; width:0.5; depth:0.5; height:0.6;" material="color:rgb(255, 255, 255)" shadow></a-entity>
+        <a-entity position="0.5 -0.4 0" geometry="primitive:box; width:2; depth:0.5; height:2;" material="color:rgb(255, 255, 255)" shadow></a-entity>
+      </a-entity>
+      <!-- room -->
+        
+      <!-- teleport pads-->
+      <a-entity id="pads">
+        <a-entity circles-checkpoint position="0 0 0"></a-entity>
+        <a-entity circles-checkpoint position="-5 0 0"></a-entity>
+        <a-entity circles-checkpoint position="5 0 0"></a-entity>
+        <a-entity circles-checkpoint position="2 0 0"></a-entity>
+        <a-entity circles-checkpoint position="-2 0 0"></a-entity>
+
+
+        <a-entity circles-checkpoint position="-7 0 -7"></a-entity>
+        <a-entity circles-checkpoint position="5 0 -7"></a-entity>
+        <a-entity circles-checkpoint position="5 0 5"></a-entity>
+        <a-entity circles-checkpoint position="-7 0 5"></a-entity>
+
+        <a-entity circles-checkpoint position="-17 0 -17"></a-entity>
+        <a-entity circles-checkpoint position="15 0 -17"></a-entity>
+        <a-entity circles-checkpoint position="15 0 15"></a-entity>
+        <a-entity circles-checkpoint position="-17 0 15"></a-entity>
+
+        <a-entity circles-checkpoint position="-12 0 -12"></a-entity>
+        <a-entity circles-checkpoint position="10 0 -12"></a-entity>
+        <a-entity circles-checkpoint position="10 0 10"></a-entity>
+        <a-entity circles-checkpoint position="-12 0 10"></a-entity>
+
+        <a-entity circles-checkpoint position="0 0 -12"></a-entity>
+        <a-entity circles-checkpoint position="10 0 0"></a-entity>
+        <a-entity circles-checkpoint position="0 0 10"></a-entity>
+        <a-entity circles-checkpoint position="-12 0 0"></a-entity>
+      
+        <a-entity circles-checkpoint position="0 0 -17"></a-entity>
+        <a-entity circles-checkpoint position="15 0 0"></a-entity>
+        <a-entity circles-checkpoint position="15 0 0"></a-entity>
+        <a-entity circles-checkpoint position="0 0 15"></a-entity>
+
+      </a-entity>
+
+
+      <a-entity id="Portal-Lobby"
+        position="0 1.7 -20" rotation="0 50 0"
+        circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; title_text:Lobby; link_url:/w/LitPortals-Lobby"
+        shadow></a-entity>
+
+    
+      <!-- Area 3 -->      
+      
+      <!-- sky and lights -->
+      <a-entity id="sunlight" position="0 20 0" rotation="40 0 0" 
+                light="type:directional; intensity:4; color:#d5e4f5; castShadow:false;"></a-entity>
+      <a-entity light="type:hemisphere; color:#FFFFFF; groundColor:#BCE2F4; intensity:3.0"></a-entity>
+
+    <!-- guide  -->
+    <a-entity id="guideGuy" position="0 0 -5" scale="5 5 5" rotation="0 0 0"  gltf-model="assets/models/guy_texture.glb">
+        
+        <!-- text bubbles -->
+        <a-entity id="guideWelcome" class="guideText" scale=" 0.2 0.2 0.2" circles-description="title_text_front: Welcome to the future!; 
+          description_text_front: Here, you shape your own reality. 
+          The choices you make define the world around you. Let me guide you through it.; 
+          offset: 1.3 2.09 0;
+          arrow_position: left;">
+        </a-entity>
+       
+        <a-entity  id="guideRed" class="guideText" scale=" 0.2 0.2 0.2" circles-description=" 
+          title_text_front: Red Button!; description_text_front: You've pressed the red button! Watch as the entire environment around you transforms.; 
+          offset: 1.3 2.09 0;
+          arrow_position: left;"
+          visible="false">
+        </a-entity>
+
+        <a-entity  id="guideBlue" class="guideText" scale=" 0.2 0.2 0.2" circles-description=" 
+          title_text_front: Blue Button!; description_text_front: Great choice! The blue button spawns objects that match the environment. Look around and see what appears!; 
+          offset: 1.3 2.09 0;
+          arrow_position: left;"
+          visible="false">
+        </a-entity>
+
+        <a-entity  id="guideGreen" class="guideText" scale=" 0.2 0.2 0.2" circles-description=" 
+          title_text_front: Green Button!; description_text_front: Ah, the green button! This one changes the color of the lights. Let's set the mood!; 
+          offset: 1.3 2.09 0;
+          arrow_position: left;"
+          visible="false">
+        </a-entity>
+
+        <a-entity id="guideYellow" class="guideText" scale=" 0.2 0.2 0.2" circles-description=" 
+          title_text_front: Yellow Button!; description_text_front: You've toggled the yellow button. That controls the lighting. Let's turn it on or off!; 
+          offset: 1.3 2.09 0;
+          arrow_position: left;"
+          visible="false">
+        </a-entity>
+      
+    </a-entity>
+      
+    </a-scene>   
+    
+    <!-- Circles' end scripts [REQUIRED] -->
+    <circles-end-scripts/>
+  </body>
+</html>
+
+
+

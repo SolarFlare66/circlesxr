@@ -1,0 +1,257 @@
+// https://aframe.io/docs/1.7.0/components/raycaster.html#listening-for-raycaster-intersection-data-change
+
+
+let positions = [];
+
+let colorStr = 'rgb(20, 20,20)';
+
+// dont need this
+// let recieveColorStr = 'rgb(73, 47, 47)';
+
+
+AFRAME.registerComponent('raycaster-listen', {
+	init: function () {
+    // Use events to figure out what raycaster is listening so we don't have to
+    // hardcode the raycaster.
+    const Context_AF = this;
+    Context_AF.socket= null;
+    Context_AF.connected  = false;
+
+    this.el.addEventListener('raycaster-intersected', evt => {
+    // this is the raycasting entity that fired
+      this.raycaster = evt.detail.el;
+      this.raycaster.setAttribute('raycaster', {interval:0});
+    });
+    this.el.addEventListener('raycaster-intersected-cleared', evt => {
+      this.raycaster = null;
+    });
+
+
+    this.el.addEventListener("mouseup", e => {
+      
+        this.isDrawing = false;
+
+        Context_AF.socket.emit('lineData', positions, colorStr);
+        console.log('sending line data to server');
+        console.log('sending color: ' + colorStr);
+
+        // this function repeates multiple times not sure why
+        // Fixed when it was moved to the networking system
+        // drawRecievedLine();
+
+        // clearing position array
+        positions = [];
+
+  
+    });
+    this.el.addEventListener("mouseout", e => {
+        this.isDrawing = false;
+    });
+    this.el.addEventListener("mousedown", e => {
+        this.isDrawing = true;        
+    });
+
+    this.el.addEventListener("touchend", e => {
+        this.isDrawing = false;
+    });
+    this.el.addEventListener("touchmove", e => {
+        this.isDrawing = true;
+    });
+    this.el.addEventListener("touchstart", e => {
+        this.isDrawing = true;
+
+    });
+
+    document.querySelector('#blackPaint').addEventListener('click', function(e){
+      console.log('black paint clicked');
+      colorStr = 'rgb(20,20,20)'
+      // Context_AF.socket.emit('black');
+    });
+
+    document.querySelector('#redPaint').addEventListener('click', function(e){
+      console.log('red paint clicked');
+      colorStr = 'rgb(120,40,50)'
+      // Context_AF.socket.emit('red');
+     });
+
+    document.querySelector('#yellowPaint').addEventListener('click', function(e){
+      console.log('yellow paint clicked');
+      colorStr = 'rgb(204,119,34)'
+    });
+
+    document.querySelector('#whitePaint').addEventListener('click', function(e){
+      console.log('white paint clicked');
+      colorStr = 'rgb(230,215,203)'
+    });
+
+    document.querySelector('#erasePainting').addEventListener('click', function(e){
+      console.log('emmiting erasePainting event to server');
+      Context_AF.socket.emit('erasePainting', {world: CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
+    });
+
+    // function drawRecievedLine(){
+    //   Context_AF.socket.on ("addNewLine", (pos) => {
+    //     console.log("array of intersection pos");
+    //     console.log(pos);
+    //   });
+    // }; 
+
+  //   document.addEventListener(CIRCLES.EVENTS.READY, function() {
+  //     console.log('Circles is ready!');
+  //     startedDrawing = true;
+  // });
+
+
+    // when player joins world send req to server to send player the global array storing all lines
+    CIRCLES.getCirclesSceneElement().addEventListener(CIRCLES.EVENTS.READY, (e) => {
+
+      console.log('Circles is ready!');
+
+      //Context_AF.socket.emit('loadPainting',{world:CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
+
+    });
+
+
+    Context_AF.createNetworkingSystem = function () {
+      Context_AF.socket = CIRCLES.getCirclesWebsocket();
+      Context_AF.connected = true;
+      const scene = this.el.sceneEl;
+
+      console.log('CONNECTED!!!!!!!!');
+      console.log(Context_AF.socket.id);
+
+
+      Context_AF.socket.emit('loadPainting',{world:CIRCLES.getCirclesWorldName(), userID: Context_AF.socket.id});
+
+      Context_AF.socket.on ("addNewLine", (pos,color) => {
+        //console.log("array of intersection pos");
+   
+        // TODO create draw function
+        for (let i = 0; i< pos.length; i++){
+          console.log(pos[i]);
+          const dot = document.createElement('a-entity');
+          dot.setAttribute('geometry', {primitive: 'plane', height:0.05, width: 0.05});
+          dot.setAttribute('material', {color: color});
+          dot.object3D.rotation.y = THREE.MathUtils.degToRad(90);
+          dot.object3D.position.set((pos[i].x +0.06), pos[i].y, pos[i].z);
+          dot.classList.add('drawingDot');
+          scene.appendChild(dot);
+        }
+      });
+
+      Context_AF.socket.on('erasePainting', (data) => {
+        console.log('Received erasePaintinge event from server');
+        document.querySelectorAll('.drawingDot').forEach(e=> e.remove());
+      });
+
+      Context_AF.socket.on('loadPainting', (allPaintingPositions) => {
+        console.log('Received loadPainting event from server');
+
+        if (Array.isArray(allPaintingPositions) && !allPaintingPositions.length){
+          console.log('allPaintingPositions array is empty');
+          return;
+        } 
+        else {
+          console.log('there is stuff in the allPaintingPositions array');
+          console.log(allPaintingPositions);
+
+          // console.log(allPaintingPositions[1].lineColor);
+
+          // couldn't get it to work
+          // allPaintingPositions.forEach(drawLoadedPainting(allPaintingPositions.linePosition, allPaintingPositions.lineColor));
+
+
+          for (let i = 0; i < allPaintingPositions.length; i++){
+            // console.log('line ', allPaintingPositions[i].linePosition);
+            // console.log('color ', allPaintingPositions[i].lineColor);
+
+            // get an error when done using function
+            // drawLoadedPainting(allPaintingPositions[i].linePosition, allPaintingPositions[i].lineColor);
+
+            for (let j = 0; j< allPaintingPositions[i].linePosition.length; j++){
+              const dot = document.createElement('a-entity');
+              dot.setAttribute('geometry', {primitive: 'plane', height:0.05, width: 0.05});
+              dot.setAttribute('material', {color: allPaintingPositions[i].lineColor});
+              dot.object3D.rotation.y = THREE.MathUtils.degToRad(90);
+              dot.object3D.position.set((allPaintingPositions[i].linePosition[j].x +0.06), allPaintingPositions[i].linePosition[j].y, allPaintingPositions[i].linePosition[j].z);
+              dot.classList.add('drawingDot');
+              scene.appendChild(dot);
+            }
+
+
+          }
+
+
+        }
+        
+      });
+
+  };
+
+  if (CIRCLES.isCirclesWebsocketReady()) {
+    Context_AF.createNetworkingSystem();
+    console.log('circles websocket is ready ');
+}
+else {
+    const wsReadyFunc = function() {
+        Context_AF.createNetworkingSystem();
+        Context_AF.el.sceneEl.removeEventListener(CIRCLES.EVENTS.WS_CONNECTED, wsReadyFunc);
+    };
+    Context_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, wsReadyFunc);
+}
+
+ },
+
+  tick: function () {
+
+    const scene = this.el.sceneEl;
+
+    if (!this.raycaster) { return; }  // Not intersecting.
+    let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
+    let pos = intersection.point;
+    if (!intersection) { return; }
+
+    if(this.isDrawing){
+        // console.log(intersection.point);
+        // console.log(pos.x);
+
+        // creating plane at POI using colour selected
+        const dot = document.createElement('a-entity');
+        dot.setAttribute('geometry', {primitive: 'plane', height:0.05, width: 0.05});
+        dot.setAttribute('material', {color:colorStr});
+        dot.object3D.rotation.y = THREE.MathUtils.degToRad(90);
+        dot.object3D.position.set((pos.x + 0.06), pos.y, pos.z );
+        dot.classList.add('drawingDot');
+        scene.appendChild(dot);
+        recordPositions(pos);
+    }
+  }
+});
+
+
+function recordPositions(pos){
+
+  // pushing point coordinates to global array
+  positions.push({x: pos.x, y:pos.y, z: pos.z})
+
+};
+
+function drawLoadedPainting(line, color){
+  
+  //console.log('lines to draw:', line.length);
+ // console.log('color to draw:', color);
+
+
+  for (let i = 0; i< line.length; i++){
+    console.log(line[i]);
+    const dot = document.createElement('a-entity');
+    dot.setAttribute('geometry', {primitive: 'plane', height:0.05, width: 0.05});
+    dot.setAttribute('material', {color: color});
+    dot.object3D.rotation.y = THREE.MathUtils.degToRad(90);
+    dot.object3D.position.set((line[i].x +0.06), line[i].y, line[i].z);
+    dot.classList.add('drawingDot');
+    scene.appendChild(dot);
+  }
+
+
+  }; 

@@ -5,6 +5,11 @@ const dotenv = require('dotenv');
 const dotenvParseVariables = require('dotenv-parse-variables');
 const crypto = require('crypto');
 
+
+//trying store cave painting array for when new user joins
+let allPaintingPositions = [];
+
+
 let env = dotenv.config({})
 if (env.error) {
   throw 'Missing environment config. Copy .env.dist to .env and make any adjustments needed from the defaults';
@@ -333,7 +338,126 @@ io.on("connection", socket => {
       socket.to(data.room).emit(CIRCLES.EVENTS.RECEIVE_DATA_SYNC, data);
     }
   });
+
+  socket.on("fireToggled", (data) => {
+    console.log("Received 'fireToggled' event from client:", data);
+        // Broadcast to all connected clients, including the sender
+        io.emit('fireToggled', data);
+      });
+
+    // Listen for environment change from client
+    socket.on("changeEnvironment", (newEnvironment) => {
+    console.log(`Received environment change request from ${socket.id}: ${newEnvironment}`);
+    
+    // Broadcast the change to all connected clients
+    io.emit("updateEnvironment", newEnvironment);
+    console.log(`Broadcasting new environment to all clients: ${newEnvironment}`);
+  });
+
+    // Broadcast the spawn event to all clients when the server receives a "spawnShape" event
+    socket.on('spawnShape', (shapeData) => {
+      console.log('Spawning shape:', shapeData);
+      // Emit the shape spawn data to all clients
+      io.emit('spawnShape', shapeData);
+  });
+  
+  // Listen for environment change from client
+  socket.on("changeEnvironment", (newEnvironment) => {
+      console.log(`Received environment change request from ${socket.id}: ${newEnvironment}`);
+
+      // Broadcast the change to all connected clients
+      io.emit("updateEnvironment", newEnvironment);
+      console.log(`Broadcasted new environment to all clients: ${newEnvironment}`);
+  });
+    socket.on("changeLightState", (lightState) => {
+      // Broadcast the light state to all clients
+      io.emit("updateLightState", lightState);
+  });
+   // Listen for light color change event
+  socket.on("changeLightColor", (data) => {
+    console.log("Light color changed to:", data.color);
+    io.emit("updateLightColor", data);
+  });
+
+  socket.on("modelMoved", (data) => {
+    if (!data.id) {
+        console.log("Shape ID is missing in the data:", data);
+    } else {
+        console.log(`Updating position for shape: ${data.id}`, data.newPosition);
+    }    
+    // Broadcast the updated position to all clients
+    io.emit("modelMoved", data);
+  });
+
+  socket.on("itemPlaced", (data) => {
+    console.log(`received position of ${data.itemId} placed at`, data.position);
+    socket.broadcast.emit("updateItemPosition", data); //broadcast to everyone except sender
+  });
+
+  socket.on("sortComplete", () => {
+    console.log("🎉 Sorting game completed!");
+    io.emit("sortComplete"); // notify ALL players
+  });
+
+  socket.on("playDing", (data) => {
+    console.log("ding played");
+    io.emit("playDing", data); // Broadcast to all clients
+  });
+  
+  socket.on("gameReset", () => {
+    console.log("🔄 Sorting game reseted");
+    socket.broadcast.emit("updateItemPosition", data);
+  })
+   // Broadcast the spawn event to all clients when the server receives a "spawnShape" event
+   socket.on('spawnBuilding', (shapeData) => {
+    console.log('spawnBuilding shape:', shapeData);
+    // Emit the shape spawn data to all clients
+    io.emit('spawnBuilding', shapeData);
+  });
+
+  socket.on('spawnModel', (shapeData) => {
+    console.log('spawnModel shape:', shapeData);
+    // Emit the shape spawn data to all clients
+    io.emit('spawnModel', shapeData);
+  }); 
+       // Emit event to spawn the building in the world
+  socket.on('canvasData', (data) =>{
+    //console.log('Server recieving: ' + data);
+
+    //sending change too all clients but initial sender
+    socket.broadcast.emit('updateCanvas', data);
+    //console.log(data);
+  });
+
+  socket.on("lineData",(pos, color)=>{
+    // console.log('server side positions:' + pos.lenght);
+    // console.log(pos);
+
+
+    // adding all lines to global array so when a new player joins it will draw from this
+    allPaintingPositions.push({linePosition: pos, lineColor: color});
+    //console.log(allPaintingPositions);
+
+    // only sending line data to others since players own line is drawn directly to front
+    socket.broadcast.emit("addNewLine", pos, color);
+  });
+
+  socket.on('erasePainting',(data)=>{
+    console.log('received erasePainting event from client: ', data);
+    io.emit("erasePainting", data);
+
+    // clearing global server array
+    allPaintingPositions = [];
+  });
+
+  socket.on('loadPainting',(data)=>{
+    console.log(' loadPainting event from client: ', data);
+    socket.emit("loadPainting", allPaintingPositions);
+  });
+
 });
+
+
 
 //let's create a research namespace.
 //This will definitely need to be redone if we run more than one experiemnet on this server at a time in the future
@@ -435,6 +559,9 @@ if (env.ENABLE_RESEARCH_MODE) {
     });
   });
 }
+
+
+
 
 //lets start up
 server.listen(env.SERVER_PORT, () => {

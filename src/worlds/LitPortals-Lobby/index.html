@@ -1,0 +1,188 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Circles' head scripts [REQUIRED] -->
+    <circles-start-scripts/>
+
+    <!-- add your custom scripts here -->
+    <script src="js/enter-play-audio.js"></script>
+
+  </head>
+  <body>
+    
+    <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
+    <circles-start-ui/>
+
+    <!-- a-scene with 'circles-properties' component [REQUIRED] -->
+    <a-scene circles_scene_properties>
+      <a-assets>
+        <!-- add your assets here. Note that you can use relative links or absolute paths to your world -->
+        <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
+        <!--portals-->
+        <a-asset-item id="portalsModel" response-type="arraybuffer" src="/worlds/LitPortals-Lobby/assets/models/portals/portals.glb"></a-asset-item>
+        <img id='skyMap' src='assets/textures/086_hdrmaps_com_free_above_clouds.jpg' crossorigin="anonymous">
+        <!-- credit: "magic" music - https://soundcloud.com/royaltyfreebackgroundmusic/sets/creative-commons-music-365 -->
+       
+        <!-- gltf models -->
+        <a-asset-item id="lobbySign" src="assets/models/lobbysign.glb"></a-asset-item>
+        <a-asset-item id="pastSign" src="assets/models/pastsign.glb"></a-asset-item>
+        <a-asset-item id="futureSign" src="assets/models/futuresign.glb"></a-asset-item>
+
+         <!--Guide-->
+         <a-asset-item id="guideModel" response-type="arraybuffer" src="/worlds/LitPortals-Future/assets/models/guy_texture.glb"></a-asset-item>
+        
+        <!-- audio -->
+        <audio id="peace" src="/worlds/LitPortals-Future/assets/sounds/Peace.mp3" preload="true"></audio>
+
+         
+
+        <!-- Circles' built-in assets [REQUIRED] -->
+        <circles-assets/>
+      </a-assets>
+      <circles-manager-avatar/>
+      
+      <!-- just creating an entity that connects many elements together -->
+
+      <a-entity id="portals" position="0 0 0" rotation = "0 180 0" scale= "40 40 40" gltf-model="#portalsModel"></a-entity>
+
+      <!-- room -->
+      <a-entity  rotation= " 90 0 0" geometry="primitive: plane; height: 100; width: 100" material="color: black; side: back; transparent: true; opacity: 0.5"></a-entity>
+      <!-- pick up objects 
+      This line lets an object be picked up - needs to click on it twice for full controls        
+      circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5" 
+      -->
+      <a-entity id="testing pickup" rotation= " 0 120 0">
+        <a-box id="box" 
+          circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5" 
+          position="8 1 0" scale="0.5 0.5 0.5" color="red" circles-pickup-networked>
+          
+        </a-box>
+        <a-sphere id="sphere" 
+          circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5"
+          position="8 1 1" scale="0.5 0.5 0.5" color="blue" circles-pickup-networked>
+        </a-sphere>
+        <a-cone id="cone" 
+          circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5"
+          position="8.1 1 2.3" scale="0.5 0.5 0.5" color="green" circles-pickup-networked>
+        </a-cone>
+        <a-dodecahedron id="dodeca" 
+          circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5"
+          position="8 1 -2" scale="0.5 0.5 0.5" color="purple" circles-pickup-networked>
+        </a-dodecahedron>
+        <a-torus id="torus" 
+          circles-pickup-object="pickupPosition: 0 1 -1; pickupScale: 0.5 0.5 0.5"
+          position="8 1 -1" scale="0.5 0.5 0.5" color="orange" circles-pickup-networked>
+        </a-torus>
+      </a-entity>
+
+       <!-- gems with text box
+        can be instructions or welcome message
+        these are networked-->
+      
+        <a-entity id="guideGuy" circles-lookat enter-play-audio position="0 0 -2" scale="5 5 5" rotation="0 0 0" sound="src: #peace;" gltf-model="#guideModel" >
+          <a-entity id="guideWelcome" scale=" 0.2 0.2 0.2" 
+          circles-description="title_text_front: Intro; 
+          description_text_front: Welcome to Echoes of Creations! This is an experience highlighting art and creation from the past and the future. I will be your guide but before we get started, please check the backside of this text by clicking the circular arrow button.;
+          title_text_back: Tutorial;
+          description_text_back: Congrats! You made it to the other side. To make this a better experience, find the brown gems around the area! Each of them hold a mini tutorial. To get there, you can use the green circles on the ground to teleport.;
+          offset: 1.3 2.09 0;
+          arrow_position: left;">
+        </a-entity>
+        </a-entity>
+
+        <!-- <a-entity id="click-me"
+        position="0 1 -2" rotation="0 0 0" scale="1 1 1"
+        geometry="primitive:octahedron; radius:0.5;"
+        material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
+        circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                          textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
+                          title: Intro;
+                          description:Welcome to Echoes of Creations! This is an experience highlighting art and creation from the past and the future. Before we get started, please check the backside of this text by clicking the button above this chat bubble. Move with the arrows or wasd and use the mouse to look around or interact.;
+                          title_back: Tutorial;
+                          description_back:Congrats! You made it to the other side. To make this a better experience, find other brown gems that look like me! Each of them hold a mini tutorial. To get there, you can use the green circles on the ground to teleport.;
+                          description_offset:0 0.5 0;
+                          desc_arrow_position:down;
+                          label_text:Click me!;"
+        circles-pickup-networked></a-entity> -->
+
+      <a-entity id="instructions-1"
+                position="-5.6 1 -4.7" rotation="0 0 0" scale="1 1 1"
+                geometry="primitive:octahedron; radius:0.5;"
+                material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                                  textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
+                                  title:Pick Up Practice;
+                                  description:This a tutorial where users can test some of the features that will be used in the other rooms. Select a shape, then try the different buttons below to manipulate them!;
+                                  title_back:;
+                                  description_back:;
+                                  description_offset:0 0.5 0;
+                                  desc_arrow_position:down;
+                                  label_text:Pick Up Practice;"
+        circles-pickup-networked></a-entity>
+
+      <a-entity id="instructions-2"
+                position="4.8 1 -5.1" rotation="0 0 0" scale="1 1 1"
+                geometry="primitive:octahedron; radius:0.5;"
+                material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                                  textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
+                                  title: Using Portals;
+                                  description:Click on these blue portals to travel to different rooms. This one brings you back here, try it out! Once you're ready, head to The Cavern of Origins.;
+                                  title_back:;
+                                  description_back:;
+                                  description_offset:0 0.5 0;
+                                  desc_arrow_position:down;
+                                  label_text:Portal Practice;"
+        circles-pickup-networked></a-entity>
+
+      <!-- teleport pads-->
+      <a-entity id = "teleport pads">
+        <a-entity circles-checkpoint position="-4.6 0 -3.5"></a-entity>
+        <a-entity circles-checkpoint position="-1.5 0 -5.6"></a-entity>
+        <a-entity circles-checkpoint position="2.5 0 3"></a-entity>
+        <a-entity circles-checkpoint position="2.5 0 -4.5"></a-entity>
+        <a-entity circles-checkpoint position="-3.5 0 3"></a-entity>
+        <a-entity circles-checkpoint position="0 0.54 0"></a-entity>
+      </a-entity>
+
+      <a-entity id = "portals">
+        <a-entity id="Portal-Cave"
+          position="4.8 1.7 0.03" rotation="0 0 0" scale="0.1 3.8 3"
+          circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Cave"
+          shadow 
+          text="align: center; color: #000000; opacity: 1; value: Cavern of Origins"></a-entity>
+        <a-entity id="cavePortalLabel" position="4.2 2.796 -1.446" rotation="0 -90 0" scale="2.7 2.7 2.7" gltf-model="#pastSign" shadow></a-entity>
+
+        <a-entity id="Portal-Future"
+          position="-4.7 2.2 0.1" rotation="0 0 0"  scale="0.1 2.64 3.08"
+          circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Future"
+          shadow></a-entity>
+          <a-entity id="futurePortalLabel" position="-4.2 2.884 -1.514" rotation="0 90 0" scale="2.7 2.7 2.7" gltf-model="#futureSign" shadow></a-entity>
+
+        <a-entity id="Portal-Lobby" 
+          position="4 2.1 -7" rotation="0 -30 0" scale="3 3 1"
+          circles-portal= "img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; link_url:/w/LitPortals-Lobby"
+          shadow>
+        </a-entity>
+        <a-entity id="lobbyPortalLabel" position="2.5 2.9 -7" rotation="0 -30 0" scale="2.7 2.7 2.7" gltf-model="#lobbySign" shadow></a-entity>
+      </a-entity>
+     
+      
+      <!-- sky and lights -->
+      <a-entity id="sunlight" position="0 20 0" rotation="40 0 0" 
+                light="type:directional; intensity:4; color:#d5e4f5; castShadow:false;"></a-entity>
+      <a-entity light="type:hemisphere; color:#FFFFFF; groundColor:#BCE2F4; intensity:3.0"></a-entity>
+
+      <a-entity id='skyBox'
+                rotation='0 200 0'
+                geometry='primitive:sphere; radius:50; segments-height:24; segments-width:24;'
+                material='shader:flat; src:#skyMap; side:back;'>
+      </a-entity>
+      
+    </a-scene>
+
+    <!-- Circles' end scripts [REQUIRED] -->
+    <circles-end-scripts/>
+  </body>
+</html>
